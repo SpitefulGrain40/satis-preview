@@ -7,7 +7,7 @@
 <title>Satis — Design System (visual)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -53,11 +53,12 @@
     display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
   }
   .topnav .brand {
-    font-size: 16px; letter-spacing: 6px; text-transform: uppercase;
-    color: var(--sage); margin-right: 16px;
+    font-family: var(--serif); font-weight: 600; font-size: 20px;
+    letter-spacing: 4px; color: var(--sage); margin-right: 16px;
   }
-  .topnav .brand .pf { font-family: 'Playfair Display', serif; font-weight: 700; }
-  .topnav .brand .cg { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+  .topnav .brand .lead { position: relative; display: inline-block; letter-spacing: 0; margin-right: 4px; }
+  .topnav .brand .lead .r { position: absolute; left: 50%; bottom: -3px; transform: translateX(-50%); width: 64%; height: 1.5px; background: var(--sage); border-radius: 1px; }
+  .topnav .brand .stop { margin-left: -3px; }
   .topnav a {
     font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
     color: var(--t-secondary); text-decoration: none;
@@ -119,7 +120,7 @@
   .eyebrow { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--t-secondary); margin-bottom: 8px; }
   .big-num { font-size: 28px; font-weight: 600; line-height: 1; }
   .big-num .unit { font-size: 14px; font-weight: 400; color: var(--t-secondary); }
-  /* hero/display numbers use Literata (Cormorant is logo-only) */
+  /* hero/display numbers use Literata (the single brand serif) */
   .cg-num { font-family: var(--serif); }
   /* ALL numerals are Literata, even inside system-font text.
      In production this is automatic via a digit-only unicode-range @font-face;
@@ -184,7 +185,7 @@
 <body>
 
 <div class="topnav">
-  <span class="brand"><span class="pf">S</span><span class="cg">ATI</span><span class="pf">S</span></span>
+  <span class="brand"><span class="lead">S<span class="r"></span></span>atis<span class="stop">.</span></span>
   <a href="#colour">Colour</a>
   <a href="#reserved">Reserved rule</a>
   <a href="#type">Type</a>
@@ -196,7 +197,6 @@
   <a href="#badges">Badges</a>
   <a href="#inputs">Inputs</a>
   <a href="#success" style="color:var(--sage)">★ Success</a>
-  <a href="#refine" style="color:var(--sage)">★ Refine</a>
 </div>
 
 <div class="wrap">
@@ -206,9 +206,10 @@
     <h2>Colour</h2>
     <p class="sec-intro">Every token in the system, rendered. Tokens are CSS custom properties consumed by Tailwind. Hover any swatch to read its role.</p>
 
-    <h3>Brand</h3>
+    <h3>Brand &amp; reward</h3>
     <div class="swatches">
-      <div class="sw"><div class="chip" style="background:var(--sage)"></div><div class="meta"><div class="name">sage</div><div class="hex">#88aa99</div><div class="role">Brand, primary accent, positive data, primary CTA</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--sage)"></div><div class="meta"><div class="name">sage</div><div class="hex">#88aa99</div><div class="role">Brand — logo, active/selected, primary CTA</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--success)"></div><div class="meta"><div class="name">success</div><div class="hex">#2fce85</div><div class="role">Reward — checks, completions, targets hit. Reserved. See ★ Success.</div></div></div>
     </div>
 
     <h3>Forest surfaces — low → high elevation</h3>
@@ -231,7 +232,7 @@
     <h3>Secondary accents — nature palette</h3>
     <div class="swatches">
       <div class="sw"><div class="chip" style="background:var(--clay)"></div><div class="meta"><div class="name">clay</div><div class="hex">#c4a087</div><div class="role">Warm accents</div></div></div>
-      <div class="sw"><div class="chip" style="background:var(--moss)"></div><div class="meta"><div class="name">moss</div><div class="hex">#a8b572</div><div class="role">Positive / streaks</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--moss)"></div><div class="meta"><div class="name">moss</div><div class="hex">#a8b572</div><div class="role">Secondary accent / variety</div></div></div>
       <div class="sw"><div class="chip" style="background:var(--slate)"></div><div class="meta"><div class="name">slate</div><div class="hex">#7a93a6</div><div class="role">Info / secondary metrics</div></div></div>
       <div class="sw"><div class="chip" style="background:var(--honey)"></div><div class="meta"><div class="name">honey</div><div class="hex">#c4a878</div><div class="role">Warning / reminders</div></div></div>
       <div class="sw"><div class="chip" style="background:var(--clay-deep)"></div><div class="meta"><div class="name">clay-deep</div><div class="hex">#b87a6d</div><div class="role">Error</div></div></div>
@@ -282,7 +283,7 @@
   <!-- TYPE -->
   <section id="type">
     <h2>Typography</h2>
-    <p class="sec-intro">Serifs are <strong>brand/display only</strong>. The working UI runs on the system font for legibility and native feel. Don't set body copy in Cormorant — it's a display face.</p>
+    <p class="sec-intro">Single-serif identity: <strong>Literata</strong> carries the brand — wordmark, app-icon S, Coach &amp; Doc, headings, and nav. <strong>System sans</strong> runs the working UI (body, labels, forms, buttons). All numerals are Literata. Playfair &amp; Cormorant are retired.</p>
 
     <h3>Two roles — single-serif identity</h3>
     <div class="demo-grid">
@@ -529,105 +530,9 @@
       <div class="col"><div style="width:64px;height:64px;border-radius:12px;background:#4ade80"></div><span class="label" style="color:var(--t-dim)">4ade80</span></div>
     </div>
 
-    <p class="note"><strong>My read:</strong> <strong>Spring #2fce85</strong> is the most on-brand — it's literally sage's hue with the saturation turned up, so a tick feels like "the brand, energised" rather than a borrowed UI green. <strong>Emerald #10b981</strong> is the next best — deeper and jewel-like, sits closest to the forest greens. <strong>Pump green #22c55e</strong> gives the most continuity with the old app and is the most universally "this means done," but it's a touch cooler/more generic next to the warm forest. All three work; it comes down to whether you value <em>on-brand harmony</em> (Spring), <em>richness</em> (Emerald), or <em>continuity</em> (Pump green). Whichever wins becomes a reserved <code>--success</code> token, used only for completion/positive states — sage stays the brand.</p>
+    <p class="note"><strong>Decided: Spring <code>#2fce85</code></strong> — sage's hue with the saturation turned up, so a tick feels like "the brand, energised." It's the reserved <code>--success</code> token, used <em>only</em> for completion / checks / targets hit; sage stays the brand. (Emerald #10b981 and Pump green #22c55e were the runners-up.)</p>
   </section>
 
-  <!-- REFINEMENTS -->
-  <section id="refine">
-    <h2>★ Refinements to review</h2>
-    <p class="sec-intro">Three open questions rendered for a decision: how a positive result should feel significant, how deep the accent card should be, and a consistent numbers-vs-lettering rule.</p>
-
-    <h3>1 · Making a "positive" feel significant</h3>
-    <p class="note" style="margin-bottom:16px">You're right — sage <em>text</em> on the dark palette is too quiet to read as a win. On a dark theme, significance comes from <strong>fill + brightness</strong>, not a text-colour swap. Options A→E, quietest to loudest:</p>
-    <div class="demo-grid">
-      <!-- A current sage text -->
-      <div class="card">
-        <div class="eyebrow">A · sage text (current)</div>
-        <div class="big-num cg-num" style="color:var(--sage)">100<span class="unit">%</span></div>
-        <div style="font-size:11px;color:var(--t-dim);margin-top:6px">Too quiet — barely a signal</div>
-      </div>
-      <!-- B moss text -->
-      <div class="card">
-        <div class="eyebrow" style="color:var(--moss)">B · moss text</div>
-        <div class="big-num cg-num" style="color:var(--moss)">100<span class="unit">%</span></div>
-        <div style="font-size:11px;color:var(--t-dim);margin-top:6px">Brighter hue, more "alive" — good for minor positives</div>
-      </div>
-      <!-- C filled sage -->
-      <div class="card" style="background:var(--sage);border-color:var(--sage)">
-        <div class="eyebrow" style="color:#0a1410;opacity:.7">C · filled sage</div>
-        <div class="big-num cg-num" style="color:#0a1410">100<span class="unit" style="color:#0a1410;opacity:.7">%</span></div>
-        <div style="font-size:11px;color:#0a1410;opacity:.7;margin-top:6px">Inverts the brand — unmistakably a "moment"</div>
-      </div>
-      <!-- D forest-bright fill + sage -->
-      <div class="card" style="background:var(--forest-bright);border-color:#367048">
-        <div class="eyebrow" style="color:var(--sage)">D · vibrant forest fill</div>
-        <div class="big-num cg-num" style="color:#d8ece1">100<span class="unit" style="color:var(--sage)">%</span></div>
-        <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Your "vibrant forest" — bright bg, light number. Stays in-family</div>
-      </div>
-      <!-- E forest-bright fill + glow -->
-      <div class="card" style="background:var(--forest-bright);border-color:#88aa99;box-shadow:0 0 24px rgba(136,170,153,0.25)">
-        <div class="eyebrow" style="color:var(--sage)">E · forest fill + soft glow</div>
-        <div class="big-num cg-num" style="color:#d8ece1">100<span class="unit" style="color:var(--sage)">%</span></div>
-        <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">For genuine milestones only (PR, streak record)</div>
-      </div>
-    </div>
-    <p class="note"><strong>My recommendation — a tiered approach:</strong> <strong>D (vibrant forest fill)</strong> as the standard "positive" treatment — it answers your instinct exactly (bright forest, stays in-family, reads clearly). Reserve <strong>E (fill + glow)</strong> for rare milestones so it keeps its impact. Use <strong>B (moss text)</strong> for inline/minor positives where a full card is too much. This keeps plain sage text out of the "win" job entirely.</p>
-
-    <h3>2 · Accent card depth</h3>
-    <p class="note" style="margin-bottom:16px">The Focus card is currently <code>forest-panel</code> (#1d4029). Here it is at three depths — pick the one that's the right amount of "interest":</p>
-    <div class="demo-grid">
-      <div class="card" style="background:var(--forest-accent);border-color:#1f3a29;display:flex;flex-direction:column;justify-content:space-between;min-height:150px">
-        <div><div class="eyebrow" style="color:var(--sage)">forest-accent · #163020</div><div style="font-size:18px;font-weight:500;line-height:1.3;font-family:var(--serif)">Push session — 4 exercises queued</div></div>
-        <button class="btn btn-primary" style="margin-top:14px">Start workout</button>
-      </div>
-      <div class="card" style="background:var(--forest-panel);border-color:var(--forest-hero);display:flex;flex-direction:column;justify-content:space-between;min-height:150px">
-        <div><div class="eyebrow" style="color:var(--sage)">forest-panel · #1d4029 (current)</div><div style="font-size:18px;font-weight:500;line-height:1.3;font-family:var(--serif)">Push session — 4 exercises queued</div></div>
-        <button class="btn btn-primary" style="margin-top:14px">Start workout</button>
-      </div>
-      <div class="card" style="background:var(--forest-hero);border-color:#2c5b3d;display:flex;flex-direction:column;justify-content:space-between;min-height:150px">
-        <div><div class="eyebrow" style="color:var(--sage)">forest-hero · #244e34</div><div style="font-size:18px;font-weight:500;line-height:1.3;font-family:var(--serif)">Push session — 4 exercises queued</div></div>
-        <button class="btn btn-primary" style="margin-top:14px">Start workout</button>
-      </div>
-    </div>
-    <p class="note">If the current one felt too light, <strong>forest-accent (#163020)</strong> is the subtler choice — barely lifts off the page, more restrained. forest-hero is the louder option. My pick for "calm confidence" is <strong>forest-accent</strong>.</p>
-
-    <h3>3 · Numbers vs lettering — a consistent rule</h3>
-    <p class="note" style="margin-bottom:16px">Proposed rule: <strong>all numerals → Cormorant Garamond; all letters (labels, units, words, axis text) → system font.</strong> This is a deliberate editorial pairing — serif figures + sans labels — and it gives every number a quiet brand signature. Units like "kg" stay system, so "<span class="cg-num">102.4</span> kg" mixes within a single value.</p>
-    <div class="demo-grid">
-      <div class="card">
-        <div class="eyebrow">Today</div>
-        <div style="font-size:32px;font-weight:600;line-height:1"><span class="cg-num">2,184</span> <span style="font-size:14px;color:var(--t-secondary);font-weight:400">kcal</span></div>
-        <div style="font-size:13px;color:var(--t-secondary);margin-top:8px"><span class="cg-num">98</span>% of goal · <span class="cg-num">7</span>-day avg <span class="cg-num">2,210</span></div>
-      </div>
-      <div class="card">
-        <div class="eyebrow">Bench Press</div>
-        <div style="font-size:32px;font-weight:600;line-height:1"><span class="cg-num">85</span> <span style="font-size:14px;color:var(--t-secondary);font-weight:400">kg × </span><span class="cg-num">5</span></div>
-        <div style="font-size:13px;color:var(--t-secondary);margin-top:8px">Up from <span class="cg-num">82.5</span> kg last week</div>
-      </div>
-    </div>
-
-    <h3 style="margin-top:24px">Chart with the rule applied — numbers Cormorant, letters system</h3>
-    <div class="chartcard">
-      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px">
-        <div><div class="eyebrow">Weight · 30 days</div><div style="font-size:28px;font-weight:600;line-height:1"><span class="cg-num" style="color:var(--sage)">102.4</span> <span class="unit" style="color:var(--t-secondary)">kg</span></div></div>
-        <div style="text-align:right"><div style="font-size:10px;color:var(--t-secondary)">vs last month</div><div style="font-size:14px;color:var(--slate)">↓ <span class="cg-num">1.8</span> kg</div></div>
-      </div>
-      <svg viewBox="0 0 600 210" width="100%" style="display:block" font-family="-apple-system, system-ui, sans-serif">
-        <defs><linearGradient id="wf2" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#88aa99" stop-opacity="0.35"/><stop offset="100%" stop-color="#88aa99" stop-opacity="0"/></linearGradient></defs>
-        <line x1="40" y1="40" x2="600" y2="40" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
-        <line x1="40" y1="90" x2="600" y2="90" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
-        <line x1="40" y1="140" x2="600" y2="140" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
-        <!-- y-axis NUMERALS in Cormorant -->
-        <g font-family="'Cormorant Garamond', serif" font-weight="600" font-size="13" fill="#4a6655"><text x="0" y="44">104</text><text x="0" y="94">103</text><text x="0" y="144">102</text></g>
-        <path d="M70 60 L115 75 L160 65 L205 95 L250 85 L295 110 L340 100 L385 125 L430 115 L475 140 L520 130 L575 145 L575 190 L70 190 Z" fill="url(#wf2)"/>
-        <path d="M70 60 L115 75 L160 65 L205 95 L250 85 L295 110 L340 100 L385 125 L430 115 L475 140 L520 130 L575 145" stroke="#2c5b3d" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="575" cy="145" r="4" fill="#88aa99" stroke="#0e1c14" stroke-width="2"/>
-        <!-- x-axis LETTERS/dates in system -->
-        <g font-size="9" fill="#4a6655" text-anchor="middle"><text x="70" y="205">May 14</text><text x="340" y="205">May 28</text><text x="575" y="205">Jun 11</text></g>
-      </svg>
-    </div>
-    <p class="note">Notice the y-axis figures (104/103/102) are Cormorant while the dates (May 14…) are system. Subtle, but it makes the data feel authored. <strong>One caution:</strong> at very small sizes (≤10px axis ticks) serif numerals can lose a little legibility — if any chart gets dense, we allow a fallback to system numerals for micro-labels. Hero/display numbers always Cormorant.</p>
-  </section>
 
 </div>
 
