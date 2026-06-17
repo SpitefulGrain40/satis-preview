@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0a1410">
+<title>Satis — Design System (visual)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sage:          #88aa99;
+    --page:          #0a1410;
+    --surface:       #0e1c14;
+    --card:          #111f17;
+    --border:        #1c2e22;
+    --modal:         #243a2c;
+    --forest-accent: #163020;
+    --forest-panel:  #1d4029;
+    --forest-hero:   #244e34;
+    --forest-bright: #2c5b3d;
+    --clay:          #c4a087;
+    --moss:          #a8b572;
+    --slate:         #7a93a6;
+    --honey:         #c4a878;
+    --clay-deep:     #b87a6d;
+    --t-primary:     #c8ddd2;
+    --t-secondary:   #7a9e8a;
+    --t-dim:         #4a6655;
+    --sys: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --serif: 'Literata', Georgia, serif;
+  }
+  body {
+    background: var(--page);
+    color: var(--t-primary);
+    font-family: var(--sys);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    padding-bottom: 80px;
+  }
+
+  /* ---- Sticky section nav ---- */
+  .topnav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,20,16,0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  }
+  .topnav .brand {
+    font-size: 16px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--sage); margin-right: 16px;
+  }
+  .topnav .brand .pf { font-family: 'Playfair Display', serif; font-weight: 700; }
+  .topnav .brand .cg { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+  .topnav a {
+    font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+    color: var(--t-secondary); text-decoration: none;
+    padding: 4px 10px; border-radius: 6px; transition: .15s;
+  }
+  .topnav a:hover { color: var(--t-primary); background: var(--surface); }
+
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+
+  section { padding: 56px 0 8px; border-bottom: 1px solid var(--border); }
+  section:last-child { border-bottom: none; }
+  h2 {
+    font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--sage); margin-bottom: 6px;
+  }
+  .sec-intro { font-size: 14px; color: var(--t-secondary); margin-bottom: 28px; max-width: 640px; line-height: 1.65; }
+  h3 {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--t-secondary); margin: 32px 0 14px;
+  }
+  code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 0.88em; color: var(--sage); }
+  .note { font-size: 13px; color: var(--t-dim); line-height: 1.7; margin-top: 12px; max-width: 640px; }
+  .note strong { color: var(--t-secondary); }
+
+  /* ---- Colour swatches ---- */
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .sw { border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .sw .chip { height: 72px; }
+  .sw .meta { padding: 10px 12px; background: var(--card); }
+  .sw .meta .name { font-size: 12px; font-weight: 600; color: var(--t-primary); }
+  .sw .meta .hex { font-size: 11px; color: var(--t-secondary); font-family: ui-monospace, monospace; margin-top: 2px; }
+  .sw .meta .role { font-size: 10px; color: var(--t-dim); margin-top: 4px; line-height: 1.4; }
+
+  /* ---- Do / Don't ---- */
+  .ddgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .ddgrid { grid-template-columns: 1fr; } }
+  .dd { border-radius: 12px; padding: 18px; border: 1px solid var(--border); background: var(--surface); }
+  .dd .tag { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .dd.do .tag { color: var(--sage); }
+  .dd.dont .tag { color: var(--clay-deep); }
+
+  /* ---- Type scale ---- */
+  .type-row { display: flex; align-items: baseline; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .type-row .tk { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--t-dim); width: 90px; flex-shrink: 0; }
+  .type-row .spec { font-size: 11px; color: var(--t-secondary); margin-left: auto; flex-shrink: 0; font-family: ui-monospace, monospace; }
+  .t-display { font-family: var(--serif); font-size: 32px; line-height: 38px; font-weight: 600; }
+  .t-title { font-family: var(--serif); font-size: 22px; line-height: 28px; font-weight: 600; }
+  .t-heading { font-family: var(--serif); font-size: 17px; line-height: 24px; font-weight: 600; }
+  .t-read { font-family: var(--serif); font-size: 17px; line-height: 1.65; font-weight: 400; }
+  .t-nav { font-family: var(--serif); font-size: 11px; line-height: 14px; font-weight: 500; }
+  .t-body { font-size: 15px; line-height: 22px; }
+  .t-bodysm { font-size: 13px; line-height: 18px; }
+  .t-label { font-size: 11px; line-height: 14px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; }
+  .t-caption { font-size: 10px; line-height: 14px; font-weight: 500; }
+
+  /* ---- Cards demo ---- */
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+  .eyebrow { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--t-secondary); margin-bottom: 8px; }
+  .big-num { font-size: 28px; font-weight: 600; line-height: 1; }
+  .big-num .unit { font-size: 14px; font-weight: 400; color: var(--t-secondary); }
+  /* hero/display numbers use Literata (Cormorant is logo-only) */
+  .cg-num { font-family: var(--serif); }
+  /* ALL numerals are Literata, even inside system-font text.
+     In production this is automatic via a digit-only unicode-range @font-face;
+     here we wrap digits in .num to demonstrate the look. */
+  .num { font-family: var(--serif); }
+
+  /* ---- Buttons ---- */
+  .btn { font-family: var(--sys); font-size: 14px; font-weight: 600; min-height: 44px; padding: 0 18px; border-radius: 12px; cursor: pointer; border: 1px solid transparent; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: .15s; }
+  .btn-primary { background: var(--sage); color: var(--page); }
+  .btn-primary:hover { background: #97b8a7; }
+  .btn-secondary { background: transparent; border-color: var(--border); color: var(--t-primary); }
+  .btn-secondary:hover { border-color: var(--sage); }
+  .btn-ghost { background: transparent; color: var(--t-secondary); }
+  .btn-ghost:hover { color: var(--t-primary); }
+  .btn-destructive { background: transparent; border-color: var(--clay-deep); color: var(--clay-deep); }
+  .btn-destructive:hover { background: rgba(184,122,109,0.12); }
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+  /* ---- Badges ---- */
+  .badge { display: inline-flex; align-items: center; font-size: 10px; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
+  .b-sage { color: var(--sage); background: rgba(136,170,153,0.12); border: 1px solid rgba(136,170,153,0.25); }
+  .b-moss { color: var(--moss); background: rgba(168,181,114,0.12); border: 1px solid rgba(168,181,114,0.25); }
+  .b-honey { color: var(--honey); background: rgba(196,168,120,0.12); border: 1px solid rgba(196,168,120,0.25); }
+  .b-clay { color: var(--clay-deep); background: rgba(184,122,109,0.12); border: 1px solid rgba(184,122,109,0.25); }
+  .b-slate { color: var(--slate); background: rgba(122,147,166,0.12); border: 1px solid rgba(122,147,166,0.25); }
+
+  /* ---- Inputs ---- */
+  .field { max-width: 320px; }
+  .field label { display: block; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--t-secondary); margin-bottom: 6px; }
+  .field input { width: 100%; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; color: var(--t-primary); font-family: var(--sys); font-size: 15px; outline: none; transition: .15s; }
+  .field input::placeholder { color: var(--t-dim); }
+  .field input:focus { border-color: var(--sage); }
+  .field.err input { border-color: var(--clay-deep); }
+  .field .errmsg { font-size: 13px; color: var(--clay-deep); margin-top: 6px; }
+
+  /* ---- Bottom nav ---- */
+  .nav { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 12px 8px 10px; display: flex; justify-content: space-around; max-width: 420px; }
+  .tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 4px 0; cursor: pointer; }
+  .tab svg { width: 23px; height: 23px; display: block; }
+  .tab .ic { color: var(--t-secondary); display: flex; }
+  .tab .name { font-family: var(--serif); font-size: 11px; color: var(--t-secondary); }
+  .tab .rule { height: 1.5px; width: 0; background: var(--t-primary); border-radius: 1px; transition: width .15s; margin-top: 3px; }
+  .tab.active .ic { color: var(--t-primary); }
+  .tab.active .name { color: var(--t-primary); font-weight: 600; }
+  .tab.active .rule { width: 44%; }
+  @media (prefers-reduced-motion: reduce) { .tab .rule { transition: none; } }
+
+  /* ---- Elevation ---- */
+  .elev-row { display: flex; gap: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+  .elev { flex: 1; padding: 24px 14px; text-align: center; font-size: 11px; color: var(--t-secondary); }
+
+  /* ---- Spacing ---- */
+  .space-demo { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+  .space-demo .s { background: var(--forest-panel); border-radius: 4px; }
+  .space-demo .cap { font-size: 10px; color: var(--t-dim); text-align: center; margin-top: 6px; }
+
+  /* ---- Chart cards ---- */
+  .chartcard { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <span class="brand"><span class="pf">S</span><span class="cg">ATI</span><span class="pf">S</span></span>
+  <a href="#colour">Colour</a>
+  <a href="#reserved">Reserved rule</a>
+  <a href="#type">Type</a>
+  <a href="#space">Spacing</a>
+  <a href="#cards">Cards</a>
+  <a href="#buttons">Buttons</a>
+  <a href="#nav">Nav</a>
+  <a href="#charts">Charts</a>
+  <a href="#badges">Badges</a>
+  <a href="#inputs">Inputs</a>
+  <a href="#refine" style="color:var(--sage)">★ Refine</a>
+</div>
+
+<div class="wrap">
+
+  <!-- COLOUR -->
+  <section id="colour">
+    <h2>Colour</h2>
+    <p class="sec-intro">Every token in the system, rendered. Tokens are CSS custom properties consumed by Tailwind. Hover any swatch to read its role.</p>
+
+    <h3>Brand</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--sage)"></div><div class="meta"><div class="name">sage</div><div class="hex">#88aa99</div><div class="role">Brand, primary accent, positive data, primary CTA</div></div></div>
+    </div>
+
+    <h3>Forest surfaces — low → high elevation</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--page)"></div><div class="meta"><div class="name">page</div><div class="hex">#0a1410</div><div class="role">App background</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--surface)"></div><div class="meta"><div class="name">surface</div><div class="hex">#0e1c14</div><div class="role">Cards, icon containers</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--card)"></div><div class="meta"><div class="name">card</div><div class="hex">#111f17</div><div class="role">Elevated cards</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--border)"></div><div class="meta"><div class="name">border</div><div class="hex">#1c2e22</div><div class="role">Borders, dividers</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--modal)"></div><div class="meta"><div class="name">modal</div><div class="hex">#243a2c</div><div class="role">Modals, popovers</div></div></div>
+    </div>
+
+    <h3>Accent forests — UI interest, charts</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--forest-accent)"></div><div class="meta"><div class="name">forest-accent</div><div class="hex">#163020</div><div class="role">Subtle elevated panel</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--forest-panel)"></div><div class="meta"><div class="name">forest-panel</div><div class="hex">#1d4029</div><div class="role">Accent / focus surfaces</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--forest-hero)"></div><div class="meta"><div class="name">forest-hero</div><div class="hex">#244e34</div><div class="role">Hero areas, dimmed chart bars</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--forest-bright)"></div><div class="meta"><div class="name">forest-bright</div><div class="hex">#2c5b3d</div><div class="role">Chart data, bright accent</div></div></div>
+    </div>
+
+    <h3>Secondary accents — nature palette</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--clay)"></div><div class="meta"><div class="name">clay</div><div class="hex">#c4a087</div><div class="role">Warm accents</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--moss)"></div><div class="meta"><div class="name">moss</div><div class="hex">#a8b572</div><div class="role">Positive / streaks</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--slate)"></div><div class="meta"><div class="name">slate</div><div class="hex">#7a93a6</div><div class="role">Info / secondary metrics</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--honey)"></div><div class="meta"><div class="name">honey</div><div class="hex">#c4a878</div><div class="role">Warning / reminders</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--clay-deep)"></div><div class="meta"><div class="name">clay-deep</div><div class="hex">#b87a6d</div><div class="role">Error</div></div></div>
+    </div>
+
+    <h3>Text — on forest surfaces</h3>
+    <div class="swatches">
+      <div class="sw"><div class="chip" style="background:var(--surface);display:flex;align-items:center;justify-content:center"><span style="color:var(--t-primary);font-size:28px;font-weight:600">Aa</span></div><div class="meta"><div class="name">t-primary</div><div class="hex">#c8ddd2</div><div class="role">Body, data, headlines · AAA</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--surface);display:flex;align-items:center;justify-content:center"><span style="color:var(--t-secondary);font-size:28px;font-weight:600">Aa</span></div><div class="meta"><div class="name">t-secondary</div><div class="hex">#7a9e8a</div><div class="role">Meta, labels · AA (≥13px/bold)</div></div></div>
+      <div class="sw"><div class="chip" style="background:var(--surface);display:flex;align-items:center;justify-content:center"><span style="color:var(--t-dim);font-size:28px;font-weight:600">Aa</span></div><div class="meta"><div class="name">t-dim</div><div class="hex">#4a6655</div><div class="role">Decorative only — never body</div></div></div>
+    </div>
+  </section>
+
+  <!-- RESERVED RULE -->
+  <section id="reserved">
+    <h2>The reserved-colour rule</h2>
+    <p class="sec-intro">The single most important rule. Default text and data is <strong style="color:var(--t-primary)">cream</strong> — sage is reserved for the logo, active states, primary CTAs, and semantically <em>positive</em> data. When sage is everywhere it signals nothing.</p>
+    <div class="ddgrid">
+      <div class="dd do">
+        <div class="tag">✓ Do</div>
+        <div class="card" style="background:var(--surface)">
+          <div class="eyebrow">Today</div>
+          <div class="big-num" style="color:var(--t-primary)">2,184 <span class="unit">kcal</span></div>
+          <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Plain data in cream</div>
+        </div>
+        <div class="card" style="background:var(--surface);margin-top:10px">
+          <div class="eyebrow" style="color:var(--sage)">Goal hit ✓</div>
+          <div class="big-num" style="color:var(--sage)">100<span class="unit">% protein</span></div>
+          <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Sage only when it <em>means</em> "positive"</div>
+        </div>
+      </div>
+      <div class="dd dont">
+        <div class="tag">✕ Don't</div>
+        <div class="card" style="background:var(--surface)">
+          <div class="eyebrow" style="color:var(--sage)">Today</div>
+          <div class="big-num" style="color:var(--sage)">2,184 <span class="unit" style="color:var(--sage)">kcal</span></div>
+          <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Sage on neutral data…</div>
+        </div>
+        <div class="card" style="background:var(--surface);margin-top:10px">
+          <div class="eyebrow" style="color:var(--sage)">Streak</div>
+          <div class="big-num" style="color:var(--sage)">12 <span class="unit" style="color:var(--sage)">days</span></div>
+          <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">…and sage everywhere = it stops meaning anything</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section id="type">
+    <h2>Typography</h2>
+    <p class="sec-intro">Serifs are <strong>brand/display only</strong>. The working UI runs on the system font for legibility and native feel. Don't set body copy in Cormorant — it's a display face.</p>
+
+    <h3>Two roles — single-serif identity</h3>
+    <div class="demo-grid">
+      <div class="card"><div style="font-family:var(--serif);font-weight:600;font-size:44px;line-height:1">Aa</div><div class="eyebrow" style="margin-top:10px">Literata</div><div style="font-size:12px;color:var(--t-dim)">The brand serif — wordmark, app-icon S, Coach · Doc · headings · nav</div></div>
+      <div class="card"><div style="font-family:var(--sys);font-weight:500;font-size:44px;line-height:1">Aa</div><div class="eyebrow" style="margin-top:10px">System sans</div><div style="font-size:12px;color:var(--t-dim)">Everything else — body, data, labels, forms, buttons</div></div>
+      <div class="card"><div style="font-family:var(--serif);font-size:40px;font-weight:600;line-height:1;letter-spacing:5px;color:var(--sage)"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:5px">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px"></span></span>atis<span style="margin-left:-4px">.</span></div><div class="eyebrow" style="margin-top:10px">Wordmark · "Satis."</div><div style="font-size:12px;color:var(--t-dim)">Literata 600, title case, full stop, keyline under the S</div></div>
+    </div>
+
+    <h3>Scale — L = Literata, Sys = system</h3>
+    <div class="type-row"><span class="tk">display · L</span><span class="t-display">2,184 kcal</span><span class="spec">32/38 · 600</span></div>
+    <div class="type-row"><span class="tk">title · L</span><span class="t-title">Today's progress</span><span class="spec">22/28 · 600</span></div>
+    <div class="type-row"><span class="tk">heading · L</span><span class="t-heading">Bench Press</span><span class="spec">17/24 · 600</span></div>
+    <div class="type-row"><span class="tk">read · L</span><span class="t-read">You've done enough this week.</span><span class="spec">17/1.65 · 400</span></div>
+    <div class="type-row"><span class="tk">nav · L</span><span class="t-nav">Schedule</span><span class="spec">11/14 · 500</span></div>
+    <div class="type-row"><span class="tk">body · Sys</span><span class="t-body">You're on track for the week.</span><span class="spec">15/22 · 400</span></div>
+    <div class="type-row"><span class="tk">body-sm · Sys</span><span class="t-bodysm">Last logged Tuesday morning.</span><span class="spec">13/18 · 400</span></div>
+    <div class="type-row"><span class="tk">label · Sys</span><span class="t-label">This week</span><span class="spec">11/14 · 500 · +1.5</span></div>
+    <div class="type-row"><span class="tk">caption · Sys</span><span class="t-caption">Updated 2 min ago</span><span class="spec">10/14 · 500</span></div>
+
+    <h3>Voice — Coach / Doc in Literata</h3>
+    <div class="card" style="background:var(--surface)">
+      <div class="eyebrow">Coach</div>
+      <div style="font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--t-primary)">
+        <span style="display:block;font-size:21px;font-weight:600;margin-bottom:8px;line-height:1.3">You've done enough this week.</span>
+        Four logged days is plenty to keep momentum — don't let yesterday's missed session pull focus. Consistency over time matters far more than any single day. Want me to set a lighter session for tomorrow?
+      </div>
+    </div>
+    <p class="note">Conversation surfaces (Coach, Doc) read in Literata — warm, legible, dyslexia-friendly. The eyebrow stays system sans. This serif/sans contrast is the texture of the whole UI.</p>
+
+    <h3>Numerals — always Literata, even inside system text</h3>
+    <div class="card" style="background:var(--surface)">
+      <div style="font-size:15px;line-height:1.7;color:var(--t-primary)">You logged <span class="num">4</span> of <span class="num">7</span> days this week and averaged <span class="num">2,184</span> kcal. Weight is down <span class="num">0.6</span> kg to <span class="num">102.4</span> kg — that's <span class="num">98</span>% of your goal pace.</div>
+      <div style="font-size:13px;color:var(--t-secondary);margin-top:10px">Updated <span class="num">2</span> min ago · streak <span class="num">12</span> days</div>
+    </div>
+    <p class="note">Letters are system sans; every digit is Literata. The numbers gently lift off the sans body and pull the eye — appropriate when the data is the point. <strong>Production:</strong> a digit-only <code>unicode-range</code> @font-face does this automatically — no per-number spans.</p>
+  </section>
+
+  <!-- SPACING / RADIUS / ELEVATION -->
+  <section id="space">
+    <h2>Spacing · radius · elevation</h2>
+    <p class="sec-intro">4px base scale. Elevation is expressed through surface colour (OLED dark theme), not shadows — shadows are reserved for true overlays.</p>
+
+    <h3>Spacing scale (4px base)</h3>
+    <div class="space-demo">
+      <div><div class="s" style="width:4px;height:4px"></div><div class="cap">4</div></div>
+      <div><div class="s" style="width:8px;height:8px"></div><div class="cap">8</div></div>
+      <div><div class="s" style="width:12px;height:12px"></div><div class="cap">12</div></div>
+      <div><div class="s" style="width:16px;height:16px"></div><div class="cap">16</div></div>
+      <div><div class="s" style="width:20px;height:20px"></div><div class="cap">20</div></div>
+      <div><div class="s" style="width:24px;height:24px"></div><div class="cap">24</div></div>
+      <div><div class="s" style="width:32px;height:32px"></div><div class="cap">32</div></div>
+      <div><div class="s" style="width:40px;height:40px"></div><div class="cap">40</div></div>
+      <div><div class="s" style="width:48px;height:48px"></div><div class="cap">48</div></div>
+      <div><div class="s" style="width:64px;height:64px"></div><div class="cap">64</div></div>
+    </div>
+
+    <h3>Radius</h3>
+    <div class="btn-row">
+      <div style="text-align:center"><div style="width:64px;height:64px;background:var(--forest-panel);border-radius:6px"></div><div class="cap" style="font-size:10px;color:var(--t-dim);margin-top:6px">r-sm 6</div></div>
+      <div style="text-align:center"><div style="width:64px;height:64px;background:var(--forest-panel);border-radius:12px"></div><div class="cap" style="font-size:10px;color:var(--t-dim);margin-top:6px">r-md 12</div></div>
+      <div style="text-align:center"><div style="width:64px;height:64px;background:var(--forest-panel);border-radius:18px"></div><div class="cap" style="font-size:10px;color:var(--t-dim);margin-top:6px">r-lg 18</div></div>
+      <div style="text-align:center"><div style="width:64px;height:64px;background:var(--forest-panel);border-radius:22%"></div><div class="cap" style="font-size:10px;color:var(--t-dim);margin-top:6px">r-icon 22%</div></div>
+    </div>
+
+    <h3>Elevation — by surface colour</h3>
+    <div class="elev-row">
+      <div class="elev" style="background:var(--page)">page</div>
+      <div class="elev" style="background:var(--surface)">surface</div>
+      <div class="elev" style="background:var(--card)">card</div>
+      <div class="elev" style="background:var(--modal)">modal</div>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section id="cards">
+    <h2>Cards</h2>
+    <p class="sec-intro">Background <code>card</code>, 1px <code>border</code>, radius 12. Data defaults to cream; sage only when positive. One accent (forest-panel) card per screen max.</p>
+    <div class="demo-grid">
+      <div class="card">
+        <div class="eyebrow">Today</div>
+        <div class="big-num cg-num" style="color:var(--t-primary)">2,184 <span class="unit">kcal</span></div>
+        <div style="font-size:11px;color:var(--t-secondary);margin:6px 0 14px"><span class="num">98</span>% of goal</div>
+        <div style="height:4px;border-radius:2px;background:var(--border);overflow:hidden"><div style="width:98%;height:100%;background:var(--sage)"></div></div>
+      </div>
+      <div class="card">
+        <div class="eyebrow" style="color:var(--moss)">PR ★</div>
+        <div style="font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:4px">Bench Press</div>
+        <div style="font-size:13px;color:var(--t-secondary)"><span class="num">85</span>kg × <span class="num">5</span> reps</div>
+        <span class="badge b-moss" style="margin-top:12px">NEW PR</span>
+      </div>
+      <div class="card" style="background:var(--forest-panel);border-color:var(--forest-hero);display:flex;flex-direction:column;justify-content:space-between">
+        <div>
+          <div class="eyebrow" style="color:var(--sage)">Focus</div>
+          <div style="font-size:18px;font-weight:500;line-height:1.3;font-family:var(--serif)">Push session — 4 exercises queued</div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:14px">Start workout</button>
+      </div>
+      <div class="card">
+        <div class="eyebrow" style="color:var(--slate)">Trend</div>
+        <div style="font-size:13px;margin-bottom:4px">7-day average</div>
+        <div class="big-num cg-num" style="color:var(--slate)">102.4 <span class="unit">kg</span></div>
+        <div style="font-size:11px;color:var(--t-secondary);margin-top:4px">−<span class="num">0.6</span> kg vs last week</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section id="buttons">
+    <h2>Buttons</h2>
+    <p class="sec-intro">One primary per screen. Min height 44px. Hover states shown live.</p>
+    <div class="btn-row">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-destructive">Delete</button>
+    </div>
+  </section>
+
+  <!-- NAV -->
+  <section id="nav">
+    <h2>Bottom navigation</h2>
+    <p class="sec-intro">Locked spec. Active state = icon + label + 1.5px cream keyline under the word (44% cell width). Three cues (colour, weight, keyline) — never colour alone. Tap any tab to see the active state move.</p>
+    <div class="nav" id="livenav"></div>
+    <p class="note"><strong>Try it:</strong> tap tabs to move the active state. The keyline animates width (disabled under reduced-motion). In production: full cell ≥48px touch target, <code>role=tablist/tab</code>, <code>aria-current</code>, iOS safe-area inset.</p>
+  </section>
+
+  <!-- CHARTS -->
+  <section id="charts">
+    <h2>Charts</h2>
+    <p class="sec-intro">Data in <code>forest-bright</code>; the headline number and target line in sage; the "now" point gets a sage dot. A cool second series uses slate so two greens never collide.</p>
+
+    <h3>Protein — weekly bars</h3>
+    <div class="chartcard">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px">
+        <div><div class="eyebrow">Protein · this week</div><div class="big-num cg-num" style="color:var(--sage)">178<span class="unit">g avg</span></div></div>
+        <div style="text-align:right"><div style="font-size:10px;color:var(--t-secondary)">Target</div><div class="cg-num" style="font-size:14px;color:var(--sage)">160g</div></div>
+      </div>
+      <svg viewBox="0 0 600 200" width="100%" style="display:block">
+        <line x1="0" y1="64" x2="600" y2="64" stroke="#88aa99" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+        <text x="592" y="58" text-anchor="end" fill="#88aa99" font-size="10">160g target</text>
+        <rect x="20" y="48" width="58" height="120" fill="#2c5b3d" rx="3"/>
+        <rect x="100" y="72" width="58" height="96" fill="#2c5b3d" rx="3"/>
+        <rect x="180" y="40" width="58" height="128" fill="#2c5b3d" rx="3"/>
+        <rect x="260" y="88" width="58" height="80" fill="#244e34" rx="3"/>
+        <rect x="340" y="32" width="58" height="136" fill="#2c5b3d" rx="3"/>
+        <rect x="420" y="56" width="58" height="112" fill="#2c5b3d" rx="3"/>
+        <rect x="500" y="100" width="58" height="68" fill="#244e34" rx="3"/>
+        <g font-size="10" fill="#7a9e8a" text-anchor="middle"><text x="49" y="186">M</text><text x="129" y="186">T</text><text x="209" y="186">W</text><text x="289" y="186">T</text><text x="369" y="186">F</text><text x="449" y="186">S</text><text x="529" y="186">S</text></g>
+      </svg>
+    </div>
+
+    <h3>Weight — 30-day trend</h3>
+    <div class="chartcard" style="margin-top:14px">
+      <div class="eyebrow">Weight · 30 days</div>
+      <div class="big-num cg-num" style="color:var(--sage);margin-bottom:2px">102.4<span class="unit">kg</span></div>
+      <div style="font-size:11px;color:var(--slate);margin-bottom:12px">↓ 1.8 kg this month</div>
+      <svg viewBox="0 0 600 200" width="100%" style="display:block">
+        <defs><linearGradient id="wf" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#88aa99" stop-opacity="0.35"/><stop offset="100%" stop-color="#88aa99" stop-opacity="0"/></linearGradient></defs>
+        <path d="M30 60 L80 75 L130 65 L180 95 L230 85 L280 110 L330 100 L380 125 L430 115 L480 140 L530 130 L580 145 L580 190 L30 190 Z" fill="url(#wf)"/>
+        <path d="M30 60 L80 75 L130 65 L180 95 L230 85 L280 110 L330 100 L380 125 L430 115 L480 140 L530 130 L580 145" stroke="#2c5b3d" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="580" cy="145" r="4" fill="#88aa99" stroke="#0e1c14" stroke-width="2"/>
+        <g font-size="9" fill="#4a6655" text-anchor="middle"><text x="30" y="200">May 14</text><text x="330" y="200">May 28</text><text x="580" y="200">Jun 11</text></g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- BADGES -->
+  <section id="badges">
+    <h2>Badges &amp; chips</h2>
+    <p class="sec-intro">Pill, radius 6. Pattern: coloured text on a 12% fill with a 25% border. Each tied to its semantic role.</p>
+    <div class="btn-row">
+      <span class="badge b-sage">ON TRACK</span>
+      <span class="badge b-moss">NEW PR</span>
+      <span class="badge b-honey">DUE</span>
+      <span class="badge b-clay">OVER</span>
+      <span class="badge b-slate">RESTING</span>
+    </div>
+  </section>
+
+  <!-- INPUTS -->
+  <section id="inputs">
+    <h2>Inputs</h2>
+    <p class="sec-intro">Surface background, focus shifts the border to sage (no harsh glow). Errors use clay-deep. Click in to see focus.</p>
+    <div class="demo-grid">
+      <div class="field"><label>Body weight</label><input type="text" placeholder="e.g. 102.4 kg"></div>
+      <div class="field err"><label>Target date</label><input type="text" value="32/13/2026"><div class="errmsg">Not a valid date</div></div>
+    </div>
+  </section>
+
+  <!-- REFINEMENTS -->
+  <section id="refine">
+    <h2>★ Refinements to review</h2>
+    <p class="sec-intro">Three open questions rendered for a decision: how a positive result should feel significant, how deep the accent card should be, and a consistent numbers-vs-lettering rule.</p>
+
+    <h3>1 · Making a "positive" feel significant</h3>
+    <p class="note" style="margin-bottom:16px">You're right — sage <em>text</em> on the dark palette is too quiet to read as a win. On a dark theme, significance comes from <strong>fill + brightness</strong>, not a text-colour swap. Options A→E, quietest to loudest:</p>
+    <div class="demo-grid">
+      <!-- A current sage text -->
+      <div class="card">
+        <div class="eyebrow">A · sage text (current)</div>
+        <div class="big-num cg-num" style="color:var(--sage)">100<span class="unit">%</span></div>
+        <div style="font-size:11px;color:var(--t-dim);margin-top:6px">Too quiet — barely a signal</div>
+      </div>
+      <!-- B moss text -->
+      <div class="card">
+        <div class="eyebrow" style="color:var(--moss)">B · moss text</div>
+        <div class="big-num cg-num" style="color:var(--moss)">100<span class="unit">%</span></div>
+        <div style="font-size:11px;color:var(--t-dim);margin-top:6px">Brighter hue, more "alive" — good for minor positives</div>
+      </div>
+      <!-- C filled sage -->
+      <div class="card" style="background:var(--sage);border-color:var(--sage)">
+        <div class="eyebrow" style="color:#0a1410;opacity:.7">C · filled sage</div>
+        <div class="big-num cg-num" style="color:#0a1410">100<span class="unit" style="color:#0a1410;opacity:.7">%</span></div>
+        <div style="font-size:11px;color:#0a1410;opacity:.7;margin-top:6px">Inverts the brand — unmistakably a "moment"</div>
+      </div>
+      <!-- D forest-bright fill + sage -->
+      <div class="card" style="background:var(--forest-bright);border-color:#367048">
+        <div class="eyebrow" style="color:var(--sage)">D · vibrant forest fill</div>
+        <div class="big-num cg-num" style="color:#d8ece1">100<span class="unit" style="color:var(--sage)">%</span></div>
+        <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Your "vibrant forest" — bright bg, light number. Stays in-family</div>
+      </div>
+      <!-- E forest-bright fill + glow -->
+      <div class="card" style="background:var(--forest-bright);border-color:#88aa99;box-shadow:0 0 24px rgba(136,170,153,0.25)">
+        <div class="eyebrow" style="color:var(--sage)">E · forest fill + soft glow</div>
+        <div class="big-num cg-num" style="color:#d8ece1">100<span class="unit" style="color:var(--sage)">%</span></div>
+        <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">For genuine milestones only (PR, streak record)</div>
+      </div>
+    </div>
+    <p class="note"><strong>My recommendation — a tiered approach:</strong> <strong>D (vibrant forest fill)</strong> as the standard "positive" treatment — it answers your instinct exactly (bright forest, stays in-family, reads clearly). Reserve <strong>E (fill + glow)</strong> for rare milestones so it keeps its impact. Use <strong>B (moss text)</strong> for inline/minor positives where a full card is too much. This keeps plain sage text out of the "win" job entirely.</p>
+
+    <h3>2 · Accent card depth</h3>
+    <p class="note" style="margin-bottom:16px">The Focus card is currently <code>forest-panel</code> (#1d4029). Here it is at three depths — pick the one that's the right amount of "interest":</p>
+    <div class="demo-grid">
+      <div class="card" style="background:var(--forest-accent);border-color:#1f3a29;display:flex;flex-direction:column;justify-content:space-between;min-height:150px">
+        <div><div class="eyebrow" style="color:var(--sage)">forest-accent · #163020</div><div style="font-size:18px;font-weight:500;line-height:1.3;font-family:var(--serif)">Push session — 4 exercises queued</div></div>
+        <button class="btn btn-primary" style="margin-top:14px">Start workout</button>
+      </div>
+      <div class="card" style="background:var(--forest-panel);border-color:var(--forest-hero);display:flex;flex-direction:column;justify-content:space-between;min-height:150px">
+        <div><div class="eyebrow" style="color:var(--sage)">forest-panel · #1d4029 (current)</div><div style="font-size:18px;font-weight:500;line-height:1.3;font-family:var(--serif)">Push session — 4 exercises queued</div></div>
+        <button class="btn btn-primary" style="margin-top:14px">Start workout</button>
+      </div>
+      <div class="card" style="background:var(--forest-hero);border-color:#2c5b3d;display:flex;flex-direction:column;justify-content:space-between;min-height:150px">
+        <div><div class="eyebrow" style="color:var(--sage)">forest-hero · #244e34</div><div style="font-size:18px;font-weight:500;line-height:1.3;font-family:var(--serif)">Push session — 4 exercises queued</div></div>
+        <button class="btn btn-primary" style="margin-top:14px">Start workout</button>
+      </div>
+    </div>
+    <p class="note">If the current one felt too light, <strong>forest-accent (#163020)</strong> is the subtler choice — barely lifts off the page, more restrained. forest-hero is the louder option. My pick for "calm confidence" is <strong>forest-accent</strong>.</p>
+
+    <h3>3 · Numbers vs lettering — a consistent rule</h3>
+    <p class="note" style="margin-bottom:16px">Proposed rule: <strong>all numerals → Cormorant Garamond; all letters (labels, units, words, axis text) → system font.</strong> This is a deliberate editorial pairing — serif figures + sans labels — and it gives every number a quiet brand signature. Units like "kg" stay system, so "<span class="cg-num">102.4</span> kg" mixes within a single value.</p>
+    <div class="demo-grid">
+      <div class="card">
+        <div class="eyebrow">Today</div>
+        <div style="font-size:32px;font-weight:600;line-height:1"><span class="cg-num">2,184</span> <span style="font-size:14px;color:var(--t-secondary);font-weight:400">kcal</span></div>
+        <div style="font-size:13px;color:var(--t-secondary);margin-top:8px"><span class="cg-num">98</span>% of goal · <span class="cg-num">7</span>-day avg <span class="cg-num">2,210</span></div>
+      </div>
+      <div class="card">
+        <div class="eyebrow">Bench Press</div>
+        <div style="font-size:32px;font-weight:600;line-height:1"><span class="cg-num">85</span> <span style="font-size:14px;color:var(--t-secondary);font-weight:400">kg × </span><span class="cg-num">5</span></div>
+        <div style="font-size:13px;color:var(--t-secondary);margin-top:8px">Up from <span class="cg-num">82.5</span> kg last week</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:24px">Chart with the rule applied — numbers Cormorant, letters system</h3>
+    <div class="chartcard">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px">
+        <div><div class="eyebrow">Weight · 30 days</div><div style="font-size:28px;font-weight:600;line-height:1"><span class="cg-num" style="color:var(--sage)">102.4</span> <span class="unit" style="color:var(--t-secondary)">kg</span></div></div>
+        <div style="text-align:right"><div style="font-size:10px;color:var(--t-secondary)">vs last month</div><div style="font-size:14px;color:var(--slate)">↓ <span class="cg-num">1.8</span> kg</div></div>
+      </div>
+      <svg viewBox="0 0 600 210" width="100%" style="display:block" font-family="-apple-system, system-ui, sans-serif">
+        <defs><linearGradient id="wf2" x1="0" x2="0" y1="0" y2="1"><stop offset="0%" stop-color="#88aa99" stop-opacity="0.35"/><stop offset="100%" stop-color="#88aa99" stop-opacity="0"/></linearGradient></defs>
+        <line x1="40" y1="40" x2="600" y2="40" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+        <line x1="40" y1="90" x2="600" y2="90" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+        <line x1="40" y1="140" x2="600" y2="140" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+        <!-- y-axis NUMERALS in Cormorant -->
+        <g font-family="'Cormorant Garamond', serif" font-weight="600" font-size="13" fill="#4a6655"><text x="0" y="44">104</text><text x="0" y="94">103</text><text x="0" y="144">102</text></g>
+        <path d="M70 60 L115 75 L160 65 L205 95 L250 85 L295 110 L340 100 L385 125 L430 115 L475 140 L520 130 L575 145 L575 190 L70 190 Z" fill="url(#wf2)"/>
+        <path d="M70 60 L115 75 L160 65 L205 95 L250 85 L295 110 L340 100 L385 125 L430 115 L475 140 L520 130 L575 145" stroke="#2c5b3d" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="575" cy="145" r="4" fill="#88aa99" stroke="#0e1c14" stroke-width="2"/>
+        <!-- x-axis LETTERS/dates in system -->
+        <g font-size="9" fill="#4a6655" text-anchor="middle"><text x="70" y="205">May 14</text><text x="340" y="205">May 28</text><text x="575" y="205">Jun 11</text></g>
+      </svg>
+    </div>
+    <p class="note">Notice the y-axis figures (104/103/102) are Cormorant while the dates (May 14…) are system. Subtle, but it makes the data feel authored. <strong>One caution:</strong> at very small sizes (≤10px axis ticks) serif numerals can lose a little legibility — if any chart gets dense, we allow a fallback to system numerals for micro-labels. Hero/display numbers always Cormorant.</p>
+  </section>
+
+</div>
+
+<script>
+  const I = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg>',
+    food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 0 1-16 0Z"/><path d="M4 12h16"/><path d="M9 4c0 1.5-1 2-1 3.5S9 9 9 9"/><path d="M13 4c0 1.5-1 2-1 3.5S13 9 13 9"/></svg>',
+    schedule: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 3v3.5"/><path d="M16 3v3.5"/></svg>',
+    doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.5a3 3 0 0 0-5.2-2A3 3 0 0 0 4 5.5a3 3 0 0 0-.8 5A3 3 0 0 0 5 16a3 3 0 0 0 4 2.4 3 3 0 0 0 3 0 3 3 0 0 0 4-2.4 3 3 0 0 0 1.8-5.5A3 3 0 0 0 20 5.5a3 3 0 0 0-2.8-3A3 3 0 0 0 12 4.5Z"/><path d="M12 4.5v14"/></svg>',
+    more: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>',
+  };
+  const tabs = [['home','Home'],['food','Food'],['schedule','Schedule'],['doc','Doc'],['more','More']];
+  let active = 'food';
+  const nav = document.getElementById('livenav');
+  function render() {
+    nav.innerHTML = tabs.map(([k,n]) =>
+      `<div class="tab${k===active?' active':''}" data-k="${k}"><span class="ic">${I[k]}</span><span class="name">${n}</span><span class="rule"></span></div>`
+    ).join('');
+    nav.querySelectorAll('.tab').forEach(t => t.onclick = () => { active = t.dataset.k; render(); });
+  }
+  render();
+</script>
+</body>
+</html>

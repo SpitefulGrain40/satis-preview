@@ -1,0 +1,2848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Satis — S-mark Typeface Comparison</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Playfair+Display:wght@700;800&family=Libre+Baskerville:wght@700&family=EB+Garamond:wght@600;700&family=Lora:wght@700&family=Spectral:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-page:    #0b1510;
+    --bg-preview: #0e1c14;
+    --bg-card:    #111f17;
+    --bg-icon:    #0e1c14;
+    --border:     #1c2e22;
+    --green:      #22c55e;
+    --text-dim:   #4a6655;
+    --text-mid:   #7a9e8a;
+    --text-light: #c8ddd2;
+  }
+
+  body {
+    background: var(--bg-page);
+    color: var(--text-light);
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 48px 32px;
+  }
+
+  h1 {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+  p.sub {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 48px;
+    max-width: 760px;
+    line-height: 1.6;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 48px 0 18px;
+    max-width: 1200px;
+  }
+  .section-note {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin: -10px 0 18px;
+    max-width: 760px;
+    line-height: 1.6;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .card:hover     { border-color: #22c55e44; }
+  .card.selected  { border-color: var(--green); box-shadow: 0 0 0 1px var(--green); }
+
+  .preview {
+    background: var(--bg-preview);
+    padding: 36px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    min-height: 220px;
+    justify-content: center;
+  }
+  .preview.scales {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 28px;
+  }
+  .preview.wordmark-row {
+    padding: 30px 18px;
+    min-height: 0;
+  }
+
+  .info {
+    padding: 14px 18px 18px;
+    border-top: 1px solid var(--border);
+  }
+  .info h3 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-mid);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .info p {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* Icon container */
+  .mark {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-icon);
+    border-radius: 18px;
+    flex-shrink: 0;
+  }
+  .mark-hero { width: 96px; height: 96px; gap: 6px; border-radius: 20px; }
+  .mark-icon { width: 56px; height: 56px; gap: 3px; border-radius: 12px; }
+  .mark-tiny { width: 48px; height: 48px; gap: 2.5px; border-radius: 11px; }
+
+  .s-letter, .word {
+    color: var(--green);
+    line-height: 1;
+    display: inline-block;
+  }
+  .underline-bar {
+    background: var(--green);
+    border-radius: 2px;
+  }
+  .word {
+    text-transform: uppercase;
+  }
+
+  /* Typeface-specific classes */
+  .tf-georgia       { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
+  .tf-cormorant-600 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; }
+  .tf-cormorant-700 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 700; }
+  .tf-playfair      { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; }
+  .tf-baskerville   { font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; }
+  .tf-eb-garamond   { font-family: 'EB Garamond', Georgia, serif; font-weight: 700; }
+  .tf-spectral      { font-family: 'Spectral', Georgia, serif; font-weight: 700; }
+  .tf-lora          { font-family: 'Lora', Georgia, serif; font-weight: 700; }
+
+  /* Letter size per scale */
+  .s-hero { font-size: 56px; }
+  .s-icon { font-size: 32px; }
+  .s-tiny { font-size: 28px; }
+
+  /* Underline widths per scale */
+  .bar-hero { width: 36px; height: 2.5px; }
+  .bar-icon { width: 22px; height: 1.8px; }
+  .bar-tiny { width: 19px; height: 1.6px; }
+
+  /* Wordmark sizes */
+  .wm-large  { font-size: 26px; font-weight: 700; letter-spacing: 12px; margin-right: -12px; -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+
+  /* Comparison row at icon size */
+  .row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    background: var(--bg-preview);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-bottom: 12px;
+    max-width: 1200px;
+  }
+  .row .col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .row .label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  /* Light-background test */
+  .light-test {
+    background: #f4efe6;
+    color: #0e1c14;
+  }
+  .light-test .mark {
+    background: transparent;
+  }
+  .light-test .s-letter,
+  .light-test .word {
+    color: #0e1c14;
+  }
+  .light-test .underline-bar {
+    background: #0e1c14;
+  }
+</style>
+</head>
+<body>
+
+<h1>Satis — S-mark Workshop</h1>
+<p class="sub">
+  Six serif options with the "S + underline" treatment, shown at three scales: hero (96px container), app-icon (56px), and tiny (48px — worst-case home-screen rendering).
+  Same green (<code>#22c55e</code>) on the same dark forest container (<code>#0e1c14</code>) used in the Hale work, so the only variable is the letterform.
+  Click cards to mark favourites.
+</p>
+
+<!-- 1. EACH TYPEFACE AT THREE SCALES -->
+<div class="section-label">Each typeface at three scales</div>
+<p class="section-note">Look at how the "S" holds its shape as it shrinks. Hairline strokes (Cormorant, Playfair) fragment first. Workhorse serifs (Georgia, EB Garamond, Spectral) keep their structure further down.</p>
+
+<div class="grid">
+
+  <!-- A. Georgia bold (Hale baseline) -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-georgia s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-georgia s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-georgia s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>A — Georgia bold (Hale baseline)</h3>
+      <p>System serif, weight-forward. The S has chunky terminals and a sturdy spine — survives small sizes well. Less refined than Garamonds. Same family used in Hale.</p>
+    </div>
+  </div>
+
+  <!-- B. Cormorant Garamond 600 -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-cormorant-600 s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-cormorant-600 s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-cormorant-600 s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>B — Cormorant Garamond 600</h3>
+      <p>Refined, high-contrast Garamond. Even at semibold the hairlines on the S's curves get thin at 48px. Beautiful at hero size, fragile at icon size.</p>
+    </div>
+  </div>
+
+  <!-- C. Cormorant Garamond 700 -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-cormorant-700 s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-cormorant-700 s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-cormorant-700 s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>C — Cormorant Garamond 700</h3>
+      <p>Heaviest Cormorant weight. Closer to "refinement + structure" sweet spot. Still has more taper than Georgia — keeps the refined feel without becoming brittle.</p>
+    </div>
+  </div>
+
+  <!-- D. Playfair Display 700 -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-playfair s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-playfair s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-playfair s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>D — Playfair Display 700</h3>
+      <p>Editorial, high contrast — drama. Very confident at hero. The thin/thick contrast is the most extreme on this page, which makes the icon-size S look fragile in similar ways to Cormorant.</p>
+    </div>
+  </div>
+
+  <!-- E. Libre Baskerville 700 -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-baskerville s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-baskerville s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-baskerville s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>E — Libre Baskerville 700</h3>
+      <p>Optimised for body text at small sizes — the most pragmatic option here. The S has slightly less personality but reads cleanly at any scale. Closest in spirit to Georgia but with a more "designed" feel.</p>
+    </div>
+  </div>
+
+  <!-- F. EB Garamond 700 -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-eb-garamond s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-eb-garamond s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-eb-garamond s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>F — EB Garamond 700</h3>
+      <p>Classic Garamond revival. Less dramatic contrast than Cormorant, more elegant than Georgia. Often called the most "historic" feeling option. Holds up better at small sizes than Cormorant.</p>
+    </div>
+  </div>
+
+  <!-- G. Spectral 700 -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-spectral s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-spectral s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-spectral s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>G — Spectral 700</h3>
+      <p>Modern serif by Production Type. Subtle contrast, very even rhythm, made for screens. The most "designed for digital" of the refined options.</p>
+    </div>
+  </div>
+
+  <!-- H. Lora 700 (wildcard) -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-lora s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-lora s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-lora s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>H — Lora 700 (wildcard)</h3>
+      <p>Calligraphic roots, brushed feel. Warmer and softer than the others. Doesn't fit the brand doc's brief but worth seeing — gives a "considered handmade" feel that some food/wellbeing brands lean into.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- 2. ICON-SIZE COMPARISON ROW -->
+<div class="section-label">App-icon survivability — all eight side by side at 56px</div>
+<p class="section-note">The home-screen test. Which of these would you recognise as a brand on a crowded phone screen? Labels below are reminders only — pretend you don't know which letter is which.</p>
+<div class="row">
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-georgia s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">A · Georgia</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-cormorant-600 s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">B · Corm 600</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-cormorant-700 s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">C · Corm 700</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-playfair s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">D · Playfair</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-baskerville s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">E · Baskerville</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-eb-garamond s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">F · EB Garamond</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-spectral s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">G · Spectral</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-lora s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label">H · Lora</span>
+  </div>
+</div>
+
+<!-- 3. WORDMARK ROW -->
+<div class="section-label">Wordmark check — "SATIS" in each typeface</div>
+<p class="section-note">5 letters with 12px tracking. The wordmark also has to live on its own (header bars, splash, share images), so the letterform has to read as a coherent word, not just an S.</p>
+
+<div class="grid">
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-georgia wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>A — Georgia bold</h3></div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-cormorant-600 wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>B — Cormorant 600</h3></div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-cormorant-700 wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>C — Cormorant 700</h3></div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-playfair wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>D — Playfair Display</h3></div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-baskerville wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>E — Libre Baskerville</h3></div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-eb-garamond wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>F — EB Garamond</h3></div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-spectral wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>G — Spectral</h3></div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span class="word tf-lora wm-large">SATIS</span>
+    </div>
+    <div class="info"><h3>H — Lora</h3></div>
+  </div>
+
+</div>
+
+<!-- 4. LIGHT BACKGROUND TEST -->
+<div class="section-label">Light-context test — works for share images, press, web embeds</div>
+<p class="section-note">Same marks inverted onto a warm off-white (<code>#f4efe6</code>). Some serifs flip elegantly; others lose their personality.</p>
+<div class="row light-test">
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-georgia s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label" style="color:#5a6e60;">A · Georgia</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-cormorant-700 s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label" style="color:#5a6e60;">C · Corm 700</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-playfair s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label" style="color:#5a6e60;">D · Playfair</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-baskerville s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label" style="color:#5a6e60;">E · Baskerville</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-eb-garamond s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label" style="color:#5a6e60;">F · EB Garamond</span>
+  </div>
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-spectral s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label" style="color:#5a6e60;">G · Spectral</span>
+  </div>
+</div>
+
+<!-- 5. MIXED-SERIF EXPLORATION -->
+<div class="section-label">Mixed serif — Playfair Display 700 "S" + Cormorant Garamond 600 letterforms</div>
+<p class="section-note">
+  Using Playfair's dramatic S as the "signature" letter (the icon mark and the leading/trailing S in the wordmark), with Cormorant 600 for the connecting letters.
+  This is unusual — most wordmarks use a single typeface — but the curves and proportions of these two are close enough that it can read intentional rather than mismatched. Below: the mark on its own, then four wordmark treatments to compare.
+</p>
+
+<!-- Icon mark (Playfair S) at three scales -->
+<div class="grid">
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div class="mark mark-hero">
+        <span class="s-letter tf-playfair s-hero">S</span>
+        <div class="underline-bar bar-hero"></div>
+      </div>
+      <div class="mark mark-icon">
+        <span class="s-letter tf-playfair s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <div class="mark mark-tiny">
+        <span class="s-letter tf-playfair s-tiny">S</span>
+        <div class="underline-bar bar-tiny"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>Icon mark — Playfair S at three scales</h3>
+      <p>The standalone mark. Playfair's tall, high-contrast S has the most presence of any option. Survivability at 48px is the watch-out — the thin curves get delicate.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Wordmark variants -->
+<div class="grid" style="margin-top:20px;">
+
+  <!-- Variant 1: Both S's Playfair, ATI Cormorant, matched size -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span style="font-size:26px;letter-spacing:12px;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;color:var(--green);text-transform:uppercase;">
+        <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Variant 1 — both S's Playfair, ATI Cormorant (matched size)</h3>
+      <p>Symmetric framing. Both S's "bracket" the word. Same point size — the difference comes purely from the letterform character.</p>
+    </div>
+  </div>
+
+  <!-- Variant 2: Only leading S Playfair -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span style="font-size:26px;letter-spacing:12px;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;color:var(--green);text-transform:uppercase;">
+        <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATIS</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Variant 2 — only leading S Playfair</h3>
+      <p>Asymmetric. The mark's S character carries into the wordmark, but the trailing S is "calm." More like a drop-cap than a frame.</p>
+    </div>
+  </div>
+
+  <!-- Variant 3: Both S's Playfair, slightly larger -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span style="font-size:26px;letter-spacing:12px;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;color:var(--green);text-transform:uppercase;">
+        <span class="tf-playfair" style="font-size:30px;line-height:0.86;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair" style="font-size:30px;line-height:0.86;">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Variant 3 — both S's Playfair, slightly larger</h3>
+      <p>Emphasises the signature S. Risk: looks like a typo if too aggressive. Bumped to 30px against the 26px Cormorant.</p>
+    </div>
+  </div>
+
+  <!-- Variant 4: Mixed with optical matching - slightly smaller Playfair S's -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview wordmark-row">
+      <span style="font-size:28px;letter-spacing:12px;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;color:var(--green);text-transform:uppercase;">
+        <span class="tf-playfair" style="font-size:25px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair" style="font-size:25px;">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Variant 4 — both S's Playfair, optically matched</h3>
+      <p>Playfair's S is taller for its point size than Cormorant's. Shrinking it slightly aligns the cap heights so the eye doesn't catch the seam.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Full horizontal lockups -->
+<div class="section-label">Horizontal lockups — icon + wordmark</div>
+<p class="section-note">The complete primary lockup for app headers and splash. Icon is Playfair S; wordmark variants pair with it.</p>
+<div class="grid">
+
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview horiz" style="flex-direction:row;gap:18px;justify-content:center;">
+      <div class="mark mark-icon" style="border-radius:12px;">
+        <span class="s-letter tf-playfair s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <span style="font-size:26px;letter-spacing:12px;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;color:var(--green);text-transform:uppercase;">
+        <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Lockup A — Playfair S mark + symmetric wordmark</h3>
+      <p>Most coherent: the standalone S in the mark visually echoes the framing S's in the wordmark.</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview horiz" style="flex-direction:row;gap:18px;justify-content:center;">
+      <div class="mark mark-icon" style="border-radius:12px;">
+        <span class="s-letter tf-playfair s-icon">S</span>
+        <div class="underline-bar bar-icon"></div>
+      </div>
+      <span style="font-size:26px;letter-spacing:12px;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;color:var(--green);text-transform:uppercase;">
+        <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATIS</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Lockup B — Playfair S mark + drop-cap wordmark</h3>
+      <p>The icon's S "becomes" the wordmark's leading S. Trailing S is Cormorant for a quieter close.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Light-context test for mixed approach -->
+<div class="section-label">Light-context test (mixed approach)</div>
+<div class="row light-test">
+  <div class="col">
+    <div class="mark mark-icon"><span class="s-letter tf-playfair s-icon">S</span><div class="underline-bar bar-icon"></div></div>
+    <span class="label" style="color:#5a6e60;">Mark</span>
+  </div>
+  <div class="col" style="align-self:center;">
+    <span style="font-size:22px;letter-spacing:10px;color:#0e1c14;text-transform:uppercase;">
+      <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+    </span>
+    <span class="label" style="color:#5a6e60;margin-top:8px;">Wordmark</span>
+  </div>
+</div>
+
+<!-- 6. UNIFIED LOCKUP — wordmark IS the lockup, S + underline does the mark work -->
+<div class="section-label">Unified lockup — wordmark and mark fused</div>
+<p class="section-note">
+  The leading S of "SATIS" becomes the mark. The underline beneath it singles it out — no separate icon needed. Below: four wordmark treatments, then the app-icon derivation (crop to just the leading S + underline, place in container).
+</p>
+
+<!-- Hero showpiece -->
+<div style="background:var(--bg-preview);border:1px solid var(--border);border-radius:16px;padding:64px 32px;margin-bottom:20px;max-width:1200px;display:flex;justify-content:center;align-items:center;">
+  <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+    <span style="font-size:64px;letter-spacing:24px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+      <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+    </span>
+    <div style="height:4px;width:46px;background:var(--green);border-radius:2px;margin-top:14px;"></div>
+  </div>
+</div>
+
+<!-- Variants -->
+<div class="grid">
+
+  <!-- V1: both S's Playfair, underline width matches S -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:140px;padding:30px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="height:2.5px;width:22px;background:var(--green);border-radius:2px;margin-top:8px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>U1 — Both S's Playfair, underline = S width</h3>
+      <p>Closest to what you asked for. Symmetric framing preserved. Underline sits below the leading S only, exactly its width.</p>
+    </div>
+  </div>
+
+  <!-- V2: only leading S Playfair -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:140px;padding:30px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATIS</span>
+        </span>
+        <div style="height:2.5px;width:22px;background:var(--green);border-radius:2px;margin-top:8px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>U2 — Only leading S Playfair</h3>
+      <p>The underline unambiguously assigns "mark-ness" to the first S. Trailing S is calmer Cormorant. Cleaner hierarchy, less symmetric.</p>
+    </div>
+  </div>
+
+  <!-- V3: underline slightly narrower than S -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:140px;padding:30px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="height:2.5px;width:16px;background:var(--green);border-radius:2px;margin-top:8px;margin-left:3px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>U3 — Underline narrower than S</h3>
+      <p>Inset underline — feels more like a tasteful accent than a structural base. Slightly more delicate.</p>
+    </div>
+  </div>
+
+  <!-- V4: underline matches S + slight extension -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:140px;padding:30px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="height:2.5px;width:28px;background:var(--green);border-radius:2px;margin-top:8px;margin-left:-3px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>U4 — Underline slightly wider than S</h3>
+      <p>Underline extends a touch past S. Reads as a base/foundation. More "grounded," slightly more athletic.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- App icon derivation -->
+<div class="section-label">App icon — derived from the leading S + underline</div>
+<p class="section-note">The mark portion (leading S + its underline) lifted out and placed in the dark forest container. This is what installs on a home screen at 48–192px.</p>
+
+<div class="grid">
+
+  <!-- App icon at three sizes -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <!-- Hero (96px) -->
+      <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+        <span class="tf-playfair" style="font-size:60px;color:var(--green);line-height:1;">S</span>
+        <div style="height:3px;width:34px;background:var(--green);border-radius:2px;"></div>
+      </div>
+      <!-- Icon (56px) -->
+      <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+        <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;">S</span>
+        <div style="height:2px;width:20px;background:var(--green);border-radius:1.5px;"></div>
+      </div>
+      <!-- Tiny (48px) -->
+      <div style="width:48px;height:48px;border-radius:11px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3.5px;">
+        <span class="tf-playfair" style="font-size:30px;color:var(--green);line-height:1;">S</span>
+        <div style="height:1.8px;width:17px;background:var(--green);border-radius:1.5px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>App icon — Playfair S in dark forest container</h3>
+      <p>96 / 56 / 48px. At 48px the Playfair hairlines start to feel delicate — may want to bump weight or use a hand-tuned SVG at the smallest size.</p>
+    </div>
+  </div>
+
+  <!-- Alternative: green-fill variant -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview scales">
+      <div style="width:96px;height:96px;border-radius:20px;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;">
+        <span class="tf-playfair" style="font-size:60px;color:#0e1c14;line-height:1;">S</span>
+        <div style="height:3px;width:34px;background:#0e1c14;border-radius:2px;"></div>
+      </div>
+      <div style="width:56px;height:56px;border-radius:12px;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+        <span class="tf-playfair" style="font-size:34px;color:#0e1c14;line-height:1;">S</span>
+        <div style="height:2px;width:20px;background:#0e1c14;border-radius:1.5px;"></div>
+      </div>
+      <div style="width:48px;height:48px;border-radius:11px;background:var(--green);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3.5px;">
+        <span class="tf-playfair" style="font-size:30px;color:#0e1c14;line-height:1;">S</span>
+        <div style="height:1.8px;width:17px;background:#0e1c14;border-radius:1.5px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>App icon — green fill variant</h3>
+      <p>Inverted: green container, dark forest letterform. 21:1 contrast, maximum punch on the home screen. Stands out more next to other icons.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Full primary lockup at header scale -->
+<div class="section-label">Primary lockup at app-header scale</div>
+<p class="section-note">This is what you'd ship at the top of the app, in the splash, and in share images. Single unified element — no separate icon needed.</p>
+
+<div style="background:var(--bg-preview);border:1px solid var(--border);border-radius:16px;padding:40px 32px;max-width:1200px;display:flex;justify-content:center;align-items:center;">
+  <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+    <span style="font-size:30px;letter-spacing:14px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+      <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+    </span>
+    <div style="height:2.5px;width:22px;background:var(--green);border-radius:2px;margin-top:9px;"></div>
+  </div>
+</div>
+
+<!-- 7. UNDERLINE STYLE — typographic, not UI -->
+<div class="section-label">Underline treatment — making it feel typographic</div>
+<p class="section-note">
+  The rounded bar reads as a UI element. The fixes below try to make the underline feel like it was drawn with the same pen as the letterforms — taking cues from the slab serifs of the capital I, the em-dash, and the stroke contrast of Playfair itself.
+</p>
+
+<div class="grid">
+
+  <!-- B0: Original rounded (reference) -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:36px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="height:2.5px;width:22px;background:var(--green);border-radius:2px;margin-top:8px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>B0 — Rounded (current)</h3>
+      <p>For reference. The pill-shape reads as UI — like a notification dot or button. Doesn't share a visual language with the serifs.</p>
+    </div>
+  </div>
+
+  <!-- B1: Flat rectangle, sharp corners -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:36px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="height:2.5px;width:22px;background:var(--green);border-radius:0;margin-top:8px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>B1 — Flat, sharp corners</h3>
+      <p>Smallest possible change. Removing the radius alone makes it read more like a typographic stroke. Honest and quiet.</p>
+    </div>
+  </div>
+
+  <!-- B2: Slab-serif end caps (mini-I shape) -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:36px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="display:inline-flex;align-items:center;margin-top:8px;">
+          <div style="width:1.5px;height:6px;background:var(--green);"></div>
+          <div style="height:1.5px;width:20px;background:var(--green);"></div>
+          <div style="width:1.5px;height:6px;background:var(--green);"></div>
+        </div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>B2 — Slab-serif end caps (mini "I")</h3>
+      <p>The bar mirrors the structure of a capital I: vertical stem caps at each end of a horizontal stroke. Reads as a typographic element. Has the most "considered" feel.</p>
+    </div>
+  </div>
+
+  <!-- B3: Em-dash from Playfair Display -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:36px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <span class="tf-playfair" style="font-size:28px;color:var(--green);line-height:0.5;margin-top:6px;margin-left:-2px;">—</span>
+      </div>
+    </div>
+    <div class="info">
+      <h3>B3 — Em-dash glyph (Playfair)</h3>
+      <p>Uses the actual em-dash character from Playfair Display. Drawn by the same designer as the letterforms — guaranteed to share a visual language. Width is fixed by the font.</p>
+    </div>
+  </div>
+
+  <!-- B4: Tapered ends -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:36px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <svg width="26" height="6" viewBox="0 0 26 6" style="margin-top:8px;">
+          <path d="M0 3 Q 4 1.5 13 1.5 Q 22 1.5 26 3 Q 22 4.5 13 4.5 Q 4 4.5 0 3 Z" fill="#22c55e"/>
+        </svg>
+      </div>
+    </div>
+    <div class="info">
+      <h3>B4 — Tapered to points</h3>
+      <p>Thicker in the middle, tapering to fine points. Mirrors Playfair's high-contrast strokes. Most expressive — and the most likely to look fussy at small sizes.</p>
+    </div>
+  </div>
+
+  <!-- B5: Hairline -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:36px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:30px;letter-spacing:12px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="height:1px;width:22px;background:var(--green);margin-top:8px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>B5 — Hairline (1px, sharp)</h3>
+      <p>Very thin, very sharp. Echoes Playfair's hairline strokes. Risk: disappears at icon size, can look like a div border.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- App icon comparison with the chosen options -->
+<div class="section-label">Icon-size check — same treatments at 56px</div>
+<p class="section-note">Some of these survive shrinking, some don't. The em-dash and tapered options especially need to be tested at icon scale.</p>
+
+<div class="row">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+      <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;">S</span>
+      <div style="height:2px;width:20px;background:var(--green);border-radius:1.5px;"></div>
+    </div>
+    <span class="label">B0 · Rounded</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+      <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;">S</span>
+      <div style="height:2px;width:20px;background:var(--green);"></div>
+    </div>
+    <span class="label">B1 · Flat</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+      <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;">S</span>
+      <div style="display:inline-flex;align-items:center;">
+        <div style="width:1.5px;height:5px;background:var(--green);"></div>
+        <div style="height:1.5px;width:18px;background:var(--green);"></div>
+        <div style="width:1.5px;height:5px;background:var(--green);"></div>
+      </div>
+    </div>
+    <span class="label">B2 · Slab caps</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;">
+      <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;">S</span>
+      <span class="tf-playfair" style="font-size:24px;color:var(--green);line-height:0.4;">—</span>
+    </div>
+    <span class="label">B3 · Em-dash</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+      <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;">S</span>
+      <svg width="22" height="5" viewBox="0 0 22 5">
+        <path d="M0 2.5 Q 3 1 11 1 Q 19 1 22 2.5 Q 19 4 11 4 Q 3 4 0 2.5 Z" fill="#22c55e"/>
+      </svg>
+    </div>
+    <span class="label">B4 · Tapered</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;">
+      <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;">S</span>
+      <div style="height:1px;width:20px;background:var(--green);"></div>
+    </div>
+    <span class="label">B5 · Hairline</span>
+  </div>
+</div>
+
+<!-- 8. HAIRLINE — TUNED AT EACH SCALE -->
+<div class="section-label">Hairline — tuned at each scale</div>
+<p class="section-note">
+  The hairline weight scales with the typography. At hero size the underline should match the actual hairline strokes of Playfair's S; at icon size it gets slightly thicker to survive. This keeps the bar reading as a typographic element across the whole asset set.
+</p>
+
+<!-- Hero showpiece with tuned hairline -->
+<div style="background:var(--bg-preview);border:1px solid var(--border);border-radius:16px;padding:72px 32px;margin-bottom:20px;max-width:1200px;display:flex;justify-content:center;align-items:center;">
+  <span style="font-size:72px;letter-spacing:28px;color:var(--green);text-transform:uppercase;line-height:1.25;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+    <span class="tf-playfair" style="display:inline-block;border-bottom:2px solid var(--green);padding-bottom:5px;line-height:1;letter-spacing:0;margin-right:28px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+  </span>
+</div>
+
+<!-- Wordmark variants: hairline width relative to leading S -->
+<div class="section-label" style="margin-top:32px;">Wordmark — hairline width options</div>
+<div class="grid">
+
+  <!-- H1: Hairline matches S width exactly -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:160px;padding:36px 18px;">
+      <span style="font-size:36px;letter-spacing:14px;color:var(--green);text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1px solid var(--green);padding-bottom:3px;line-height:1;letter-spacing:0;margin-right:14px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>H1 — Hairline matches S width</h3>
+      <p>1px line, width derived from the actual glyph (via <code>border-bottom</code> on the S, with letter-spacing zeroed inside so the box is just the glyph). Tracking to the next letter restored via <code>margin-right</code>.</p>
+    </div>
+  </div>
+
+  <!-- H2: Hairline narrower than S, centred -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:160px;padding:36px 18px;">
+      <span style="font-size:36px;letter-spacing:14px;color:var(--green);text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;position:relative;line-height:1;letter-spacing:0;margin-right:14px;">
+          S
+          <span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:60%;height:1px;background:var(--green);"></span>
+        </span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>H2 — Hairline narrower than S, centred</h3>
+      <p>60% of the S's width, centred. Quieter — almost a tick mark. More restrained.</p>
+    </div>
+  </div>
+
+  <!-- H3: Hairline runs full word width (kept as a different gesture) -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:160px;padding:36px 18px;">
+      <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+        <span style="font-size:36px;letter-spacing:14px;color:var(--green);text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+          <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+        </span>
+        <div style="height:1px;width:100%;background:var(--green);margin-top:3px;"></div>
+      </div>
+    </div>
+    <div class="info">
+      <h3>H3 — Hairline runs full word width</h3>
+      <p>Different gesture entirely — the bar becomes a baseline rule under the whole wordmark. Drops the "mark on one letter" relationship. Editorial / book-like.</p>
+    </div>
+  </div>
+
+  <!-- H4: 1.25px hairline matched to S width -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:160px;padding:36px 18px;">
+      <span style="font-size:36px;letter-spacing:14px;color:var(--green);text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.25px solid var(--green);padding-bottom:3px;line-height:1;letter-spacing:0;margin-right:14px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>H4 — 1.25px hairline (slight body)</h3>
+      <p>Same width as H1 but with a touch more weight. Survives more rendering conditions (some browsers round 1px down to 0.5 on standard displays). Same feel, more robust.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- App icon at multiple sizes -->
+<div class="section-label" style="margin-top:32px;">App icon — hairline at multiple sizes</div>
+<p class="section-note">Each size uses a hairline weight calibrated to that scale. The thickness grows with the container, so the underline always feels like a hairline relative to the S above it.</p>
+
+<div class="row">
+  <!-- 192px PWA -->
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:118px;color:var(--green);line-height:1;border-bottom:2.5px solid var(--green);padding-bottom:8px;">S</span>
+    </div>
+    <span class="label">192px (PWA install)</span>
+  </div>
+  <!-- 96px PWA -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:60px;color:var(--green);line-height:1;border-bottom:1.5px solid var(--green);padding-bottom:5px;">S</span>
+    </div>
+    <span class="label">96px (favicon hi-DPI)</span>
+  </div>
+  <!-- 56px -->
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:34px;color:var(--green);line-height:1;border-bottom:1px solid var(--green);padding-bottom:3px;">S</span>
+    </div>
+    <span class="label">56px (home screen)</span>
+  </div>
+  <!-- 48px (tiny) -->
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:30px;color:var(--green);line-height:1;border-bottom:1px solid var(--green);padding-bottom:2.5px;">S</span>
+    </div>
+    <span class="label">48px (browser tab)</span>
+  </div>
+</div>
+
+<!-- Green fill variant at same sizes -->
+<p class="section-note" style="margin-top:24px;">Same sizes, green fill variant — for higher home-screen presence:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:118px;color:#0e1c14;line-height:1;border-bottom:2.5px solid #0e1c14;padding-bottom:8px;">S</span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:60px;color:#0e1c14;line-height:1;border-bottom:1.5px solid #0e1c14;padding-bottom:5px;">S</span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:34px;color:#0e1c14;line-height:1;border-bottom:1.25px solid #0e1c14;padding-bottom:3px;">S</span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="font-size:30px;color:#0e1c14;line-height:1;border-bottom:1.25px solid #0e1c14;padding-bottom:2.5px;">S</span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<!-- 9. APP ICONS WITH NARROWER UNDERLINE -->
+<div class="section-label">App icon — narrower underline options</div>
+<p class="section-note">
+  Same icon container, but the underline is a percentage of the S's width rather than matching it. Narrower lines read more like an accent/punctuation than a structural base, which can feel more refined at icon size.
+</p>
+
+<!-- Hero scale (96px) at four widths -->
+<p class="section-note" style="margin-top:24px;">96px (favicon hi-DPI) — four underline widths:</p>
+<div class="row">
+  <!-- 100% (reference) -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:100%;height:1.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">100% · matches S</span>
+  </div>
+  <!-- 75% -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:75%;height:1.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">75%</span>
+  </div>
+  <!-- 60% -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:60%;height:1.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">60%</span>
+  </div>
+  <!-- 45% -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:45%;height:1.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">45% · tick mark</span>
+  </div>
+</div>
+
+<!-- Same options in green fill -->
+<p class="section-note" style="margin-top:24px;">Same widths in green fill:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:100%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">100%</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:75%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">75%</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:60%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">60%</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);width:45%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">45%</span>
+  </div>
+</div>
+
+<!-- Survivability at 56px -->
+<p class="section-note" style="margin-top:24px;">56px home-screen check — same widths, smaller container:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:100%;height:1px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">100%</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:75%;height:1px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">75%</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:60%;height:1px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">60%</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:45%;height:1px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">45%</span>
+  </div>
+</div>
+
+<!-- Hero scale -->
+<p class="section-note" style="margin-top:24px;">192px PWA install — narrower variants:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);width:75%;height:2.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">75%</span>
+  </div>
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:var(--green);line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);width:60%;height:2.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">60%</span>
+  </div>
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#0e1c14;line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);width:75%;height:2.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">75% · green fill</span>
+  </div>
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#0e1c14;line-height:1;">
+        S
+        <span style="position:absolute;left:50%;bottom:-13px;transform:translateX(-50%);width:60%;height:2.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">60% · green fill</span>
+  </div>
+</div>
+
+<!-- 10. FINAL DIRECTION — 60% underline, centred as a unit -->
+<div class="section-label">Final direction — 60% underline, lockup centred vertically</div>
+<p class="section-note">
+  The chosen icon treatment at every PWA size. The S + underline are now centred together (via <code>padding-bottom</code> on the S's box so the flex container treats the pair as one element), with the underline at 60% of the S's width.
+</p>
+
+<!-- Dark forest variants -->
+<p class="section-note" style="margin-top:24px;">Dark forest container — primary:</p>
+<div class="row">
+  <!-- 192px -->
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:var(--green);line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">192px · install</span>
+  </div>
+  <!-- 96px -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:var(--green);line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">96px · hi-DPI favicon</span>
+  </div>
+  <!-- 56px -->
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:var(--green);line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">56px · home screen</span>
+  </div>
+  <!-- 48px -->
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:var(--green);line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1px;background:var(--green);"></span>
+      </span>
+    </div>
+    <span class="label">48px · browser tab</span>
+  </div>
+</div>
+
+<!-- Green fill variants -->
+<p class="section-note" style="margin-top:24px;">Green fill container — alternative for higher home-screen presence:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#0e1c14;line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:var(--green);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:#0e1c14;line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<!-- 11. COLOUR VARIANTS -->
+<div class="section-label">Colour exploration — moving toward classier muted tones</div>
+<p class="section-note">
+  The current <code>#22c55e</code> (Tailwind green-500) is a tech-app default. The two options you suggested — <code>#8A9381</code> (muted sage) and <code>#B2AC88</code> (warm khaki) — push the brand into editorial / heritage territory. Below: the same final lockup and icons in each colour, on the same dark forest container, with contrast notes.
+</p>
+
+<!-- Hero lockups in each colour -->
+<p class="section-note" style="margin-top:24px;">Primary lockup at hero scale:</p>
+<div class="grid">
+
+  <!-- Reference: current green -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:200px;padding:50px 24px;">
+      <span style="font-size:48px;letter-spacing:18px;color:#22c55e;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #22c55e;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:18px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Reference — #22c55e <span class="badge aa">AA</span></h3>
+      <p>Current Pump green. 6.57:1 contrast on forest. Reads as "tech app" / "growth-stage SaaS." The bench mark.</p>
+    </div>
+  </div>
+
+  <!-- 8A9381 sage -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:200px;padding:50px 24px;">
+      <span style="font-size:48px;letter-spacing:18px;color:#8A9381;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #8A9381;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:18px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>#8A9381 — Muted sage <span class="badge aa">AA</span></h3>
+      <p>Cool grey-green. ~5.4:1 contrast on forest. Reads as "considered / heritage / Aesop-adjacent." Quietest of the options.</p>
+    </div>
+  </div>
+
+  <!-- B2AC88 warm khaki -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:200px;padding:50px 24px;">
+      <span style="font-size:48px;letter-spacing:18px;color:#B2AC88;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #B2AC88;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:18px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>#B2AC88 — Warm khaki <span class="badge aaa">AAA</span></h3>
+      <p>Warm sandy olive. ~7.6:1 contrast on forest. Reads as "vintage / outdoorsy / earned." Highest contrast of the muted options.</p>
+    </div>
+  </div>
+
+  <!-- 80c2af seafoam -->
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:200px;padding:50px 24px;">
+      <span style="font-size:48px;letter-spacing:18px;color:#80c2af;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #80c2af;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:18px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>#80c2af — Soft seafoam <span class="badge aaa">AAA</span></h3>
+      <p>Cool mint/seafoam. ~9.2:1 contrast on forest. Reads as "calm / spa / clinical-but-warm." Strongest icon-size presence of the muted options.</p>
+    </div>
+  </div>
+
+  <!-- 75bd8e soft green -->
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:200px;padding:50px 24px;">
+      <span style="font-size:48px;letter-spacing:18px;color:#75bd8e;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #75bd8e;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:18px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>#75bd8e — Soft green <span class="badge aaa">AAA</span></h3>
+      <p>Muted, botanical green. ~8.1:1 contrast on forest. Keeps the "green = vitality" brand DNA but in a refined register. Less clinical than seafoam, more alive than sage.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- App icons at 96px in each colour -->
+<p class="section-note" style="margin-top:24px;">App icon at 96px (hi-DPI) — dark forest container:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#22c55e;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#22c55e;"></span>
+      </span>
+    </div>
+    <span class="label">#22c55e · current</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#8A9381;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#8A9381;"></span>
+      </span>
+    </div>
+    <span class="label">#8A9381 · sage</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#B2AC88;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#B2AC88;"></span>
+      </span>
+    </div>
+    <span class="label">#B2AC88 · khaki</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#80c2af;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#80c2af;"></span>
+      </span>
+    </div>
+    <span class="label">#80c2af · seafoam</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#75bd8e;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label">#75bd8e · soft green</span>
+  </div>
+</div>
+
+<!-- App icons at 56px (home-screen test) -->
+<p class="section-note" style="margin-top:24px;">App icon at 56px (home-screen test) — the colour has to survive small sizes:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#22c55e;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#22c55e;"></span>
+      </span>
+    </div>
+    <span class="label">#22c55e</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#8A9381;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#8A9381;"></span>
+      </span>
+    </div>
+    <span class="label">#8A9381</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#B2AC88;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#B2AC88;"></span>
+      </span>
+    </div>
+    <span class="label">#B2AC88</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#80c2af;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#80c2af;"></span>
+      </span>
+    </div>
+    <span class="label">#80c2af</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:var(--bg-icon);display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#75bd8e;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label">#75bd8e</span>
+  </div>
+</div>
+
+<!-- Light-context check -->
+<p class="section-note" style="margin-top:24px;">Light-context — does the colour still hold against warm off-white (<code>#f4efe6</code>)?</p>
+<div class="row" style="background:#f4efe6;">
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#f4efe6;display:flex;align-items:center;justify-content:center;border:1px solid #e0d8c8;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#22c55e;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#22c55e;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#5a6e60;">#22c55e</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#f4efe6;display:flex;align-items:center;justify-content:center;border:1px solid #e0d8c8;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#8A9381;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#8A9381;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#5a6e60;">#8A9381</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#f4efe6;display:flex;align-items:center;justify-content:center;border:1px solid #e0d8c8;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#B2AC88;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#B2AC88;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#5a6e60;">#B2AC88</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#f4efe6;display:flex;align-items:center;justify-content:center;border:1px solid #e0d8c8;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#80c2af;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#80c2af;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#5a6e60;">#80c2af</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#f4efe6;display:flex;align-items:center;justify-content:center;border:1px solid #e0d8c8;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#75bd8e;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#5a6e60;">#75bd8e</span>
+  </div>
+</div>
+
+<!-- 12. APP ICON COMPARISON — #75bd8e -->
+<div class="section-label">App icon comparison — #75bd8e in both orientations</div>
+<p class="section-note">
+  Top row: dark forest container with the green mark. Bottom row: inverted — green container with the forest mark inside.
+  Each variant shown at the four PWA sizes you'll ship (192 / 96 / 56 / 48px).
+</p>
+
+<!-- Dark forest container, green mark -->
+<p class="section-note" style="margin-top:24px;">Dark forest container · <code>#0e1c14</code> background · <code>#75bd8e</code> mark:</p>
+<div class="row">
+  <!-- 192px -->
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#75bd8e;line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <!-- 96px -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#75bd8e;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <!-- 56px -->
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#75bd8e;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <!-- 48px -->
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:#75bd8e;line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<!-- Inverted: green container, forest mark -->
+<p class="section-note" style="margin-top:24px;">Inverted · <code>#75bd8e</code> background · <code>#0e1c14</code> mark:</p>
+<div class="row">
+  <!-- 192px -->
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:#75bd8e;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#0e1c14;line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <!-- 96px -->
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#75bd8e;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <!-- 56px -->
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#75bd8e;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <!-- 48px -->
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:#75bd8e;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:#0e1c14;line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<!-- Mock home-screen context -->
+<p class="section-note" style="margin-top:24px;">In context — two icons next to typical home-screen neighbours (white circle = generic, blue gradient = generic) so you can read the home-screen presence:</p>
+<div class="row" style="background:#1a1a1a;padding:32px 24px;gap:14px;">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:white;"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#4a90e2,#357abd);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#75bd8e;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#75bd8e;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">satis · dark</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#75bd8e;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">satis · inverted</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ee5a52);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#000;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-family:Arial;font-weight:bold;">X</div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+</div>
+
+<!-- 13. APP ICON COMPARISON — #88aa99 -->
+<div class="section-label">App icon comparison — #88aa99</div>
+<p class="section-note">
+  Muted sage-green. Sits between <code>#75bd8e</code> (botanical) and <code>#8A9381</code> (heritage sage). Estimated contrast ~7:1 on forest — passes AAA.
+</p>
+
+<p class="section-note" style="margin-top:24px;">Dark forest container · <code>#0e1c14</code> background · <code>#88aa99</code> mark:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#88aa99;line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:#88aa99;"></span>
+      </span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#88aa99;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#88aa99;"></span>
+      </span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#88aa99;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#88aa99;"></span>
+      </span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:#88aa99;line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1px;background:#88aa99;"></span>
+      </span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<p class="section-note" style="margin-top:24px;">Inverted · <code>#88aa99</code> background · <code>#0e1c14</code> mark:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:#88aa99;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#0e1c14;line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#88aa99;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#88aa99;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:#88aa99;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:#0e1c14;line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<p class="section-note" style="margin-top:24px;">Home-screen mock at 56px:</p>
+<div class="row" style="background:#1a1a1a;padding:32px 24px;gap:14px;">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:white;"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#4a90e2,#357abd);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#88aa99;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#88aa99;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">satis · dark</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#88aa99;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">satis · inverted</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ee5a52);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#000;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-family:Arial;font-weight:bold;">X</div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+</div>
+
+<!-- 14. APP ICON COMPARISON — #5a8a7a -->
+<div class="section-label">App icon comparison — #5a8a7a</div>
+<p class="section-note">
+  Deeper forest-adjacent green. The richest/darkest of the muted options. Estimated contrast ~4.4:1 on forest — passes AA for large text but borderline for small icon use. The watch-out: the mark may blend into the forest container at 48–56px.
+</p>
+
+<p class="section-note" style="margin-top:24px;">Dark forest container · <code>#0e1c14</code> background · <code>#5a8a7a</code> mark:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#5a8a7a;line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:#5a8a7a;"></span>
+      </span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#5a8a7a;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#5a8a7a;"></span>
+      </span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#5a8a7a;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#5a8a7a;"></span>
+      </span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:#5a8a7a;line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1px;background:#5a8a7a;"></span>
+      </span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<p class="section-note" style="margin-top:24px;">Inverted · <code>#5a8a7a</code> background · <code>#0e1c14</code> mark:</p>
+<div class="row">
+  <div class="col">
+    <div style="width:192px;height:192px;border-radius:40px;background:#5a8a7a;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:118px;color:#0e1c14;line-height:1;padding-bottom:32px;">
+        S
+        <span style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);width:60%;height:2.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">192px</span>
+  </div>
+  <div class="col">
+    <div style="width:96px;height:96px;border-radius:20px;background:#5a8a7a;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">96px</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#5a8a7a;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">56px</span>
+  </div>
+  <div class="col">
+    <div style="width:48px;height:48px;border-radius:11px;background:#5a8a7a;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:30px;color:#0e1c14;line-height:1;padding-bottom:8px;">
+        S
+        <span style="position:absolute;left:50%;bottom:4px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label">48px</span>
+  </div>
+</div>
+
+<p class="section-note" style="margin-top:24px;">Home-screen mock at 56px:</p>
+<div class="row" style="background:#1a1a1a;padding:32px 24px;gap:14px;">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:white;"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#4a90e2,#357abd);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#5a8a7a;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#5a8a7a;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">satis · dark</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#5a8a7a;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S
+        <span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">satis · inverted</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ee5a52);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#000;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;font-family:Arial;font-weight:bold;">X</div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+</div>
+
+<!-- 15. CLAUDE-VIBE GREENS -->
+<div class="section-label">Claude-vibe greens — warm, dusty, but with presence</div>
+<p class="section-note">
+  Claude's brand colour is <code>#D97757</code> — a warm coral/terracotta with dusty saturation and ~60% lightness. The vibe: confidently warm, considered but not muted, distinctive against the standard tech-app palette of pure blues/reds/greens. Below: three green translations that try to match that quality, plus the Claude orange itself for reference on what we're aiming at.
+</p>
+
+<div class="grid">
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:40px 24px;">
+      <span style="font-size:40px;letter-spacing:14px;color:#D97757;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #D97757;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:14px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>Reference — #D97757 (actual Claude orange)</h3>
+      <p>The target vibe. Not for Satis — included so you can judge the green translations against it.</p>
+    </div>
+  </div>
+
+  <div class="card selected" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:40px 24px;">
+      <span style="font-size:40px;letter-spacing:14px;color:#A8C283;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #A8C283;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:14px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>#A8C283 — Warm sage-green</h3>
+      <p>Yellow-green at ~65% lightness, ~35% saturation. Closest direct hue-rotation of Claude. Reads as "dusty herb / dried tarragon."</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:40px 24px;">
+      <span style="font-size:40px;letter-spacing:14px;color:#9BC472;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #9BC472;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:14px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>#9BC472 — Fresh warm green</h3>
+      <p>Slightly more saturated. Reads as "fresh basil / matcha." Most likely to stand out among other icons — closest match to Claude's <em>presence</em> level.</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="this.classList.toggle('selected')">
+    <div class="preview" style="min-height:180px;padding:40px 24px;">
+      <span style="font-size:40px;letter-spacing:14px;color:#B0C68F;text-transform:uppercase;line-height:1.4;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+        <span class="tf-playfair" style="display:inline-block;border-bottom:1.5px solid #B0C68F;padding-bottom:4px;line-height:1;letter-spacing:0;margin-right:14px;">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+      </span>
+    </div>
+    <div class="info">
+      <h3>#B0C68F — Dusty sage-khaki</h3>
+      <p>Dustiest of the three. Drifts toward khaki territory. Most "considered" feel but lowest presence.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Home-screen mock — dark variant -->
+<p class="section-note" style="margin-top:24px;">Home-screen mock — dark forest container · candidates left, generics right:</p>
+<div class="row" style="background:#1a1a1a;padding:32px 24px;gap:14px;flex-wrap:wrap;">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#A8C283;line-height:1;padding-bottom:10px;">
+        S<span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#A8C283;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">A8C283</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#9BC472;line-height:1;padding-bottom:10px;">
+        S<span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#9BC472;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">9BC472</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#0e1c14;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#B0C68F;line-height:1;padding-bottom:10px;">
+        S<span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1px;background:#B0C68F;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">B0C68F</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#4a90e2,#357abd);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ee5a52);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:white;"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+</div>
+
+<p class="section-note" style="margin-top:14px;">Inverted variants:</p>
+<div class="row" style="background:#1a1a1a;padding:32px 24px;gap:14px;flex-wrap:wrap;">
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#A8C283;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S<span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">A8C283 inv</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#9BC472;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S<span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">9BC472 inv</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:#B0C68F;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:34px;color:#0e1c14;line-height:1;padding-bottom:10px;">
+        S<span style="position:absolute;left:50%;bottom:5px;transform:translateX(-50%);width:60%;height:1.25px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span class="label" style="color:#888;">B0C68F inv</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#4a90e2,#357abd);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#ff6b6b,#ee5a52);"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+  <div class="col">
+    <div style="width:56px;height:56px;border-radius:12px;background:white;"></div>
+    <span class="label" style="color:#888;">generic</span>
+  </div>
+</div>
+
+<!-- ========================================================== -->
+<!-- 16. FINAL BRAND SHEET — locked design                       -->
+<!-- ========================================================== -->
+<div style="border-top:1px solid var(--border);margin:64px 0 32px;padding-top:48px;max-width:1200px;">
+  <div class="section-label" style="margin-top:0;">Satis — final brand sheet</div>
+  <p class="section-note" style="max-width:760px;">
+    The locked design. Primary lockup, wordmark, both app icon variants, and the extended UI palette proposal — everything you need to hand off for spec writing and the rebrand refresh.
+  </p>
+</div>
+
+<!-- Hero primary lockup -->
+<div style="background:#0e1c14;border-radius:24px;padding:96px 32px;max-width:1200px;display:flex;justify-content:center;align-items:center;margin-bottom:20px;">
+  <div style="display:inline-flex;flex-direction:column;align-items:flex-start;">
+    <span style="font-size:72px;letter-spacing:28px;color:#88aa99;text-transform:uppercase;line-height:1.25;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;line-height:1;letter-spacing:0;margin-right:28px;">
+        S
+        <span style="position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);width:60%;height:2px;background:#88aa99;"></span>
+      </span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+    </span>
+  </div>
+</div>
+<p style="text-align:center;font-size:11px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-bottom:48px;max-width:1200px;">Primary lockup · <span style="color:var(--text-mid);">#88aa99</span> on <span style="color:var(--text-mid);">#0e1c14</span></p>
+
+<!-- Asset row: wordmark, mark, icon-dark, icon-inverted -->
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:1200px;margin-bottom:48px;">
+
+  <!-- Wordmark only (no underline) -->
+  <div style="background:#0e1c14;border-radius:16px;padding:48px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;">
+    <span style="font-size:36px;letter-spacing:14px;color:#88aa99;text-transform:uppercase;line-height:1;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision;">
+      <span class="tf-playfair">S</span><span class="tf-cormorant-600">ATI</span><span class="tf-playfair">S</span>
+    </span>
+    <span style="font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-top:32px;">Wordmark only</span>
+    <span style="font-size:10px;color:var(--text-dim);margin-top:4px;">For header bars · no icon</span>
+  </div>
+
+  <!-- Standalone mark (S + underline on forest, no container) -->
+  <div style="background:#0e1c14;border-radius:16px;padding:48px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;">
+    <span class="tf-playfair" style="position:relative;display:inline-block;font-size:84px;color:#88aa99;line-height:1;">
+      S
+      <span style="position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);width:60%;height:1.75px;background:#88aa99;"></span>
+    </span>
+    <span style="font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-top:32px;">Standalone mark</span>
+    <span style="font-size:10px;color:var(--text-dim);margin-top:4px;">For favicons / monograms</span>
+  </div>
+
+  <!-- App icon — dark forest container -->
+  <div style="background:#0e1c14;border-radius:16px;padding:48px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;">
+    <div style="width:96px;height:96px;border-radius:20px;background:#0e1c14;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 1px #1c2e22;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#88aa99;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#88aa99;"></span>
+      </span>
+    </div>
+    <span style="font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-top:24px;">App icon · primary</span>
+    <span style="font-size:10px;color:var(--text-dim);margin-top:4px;">Dark forest container</span>
+  </div>
+
+  <!-- App icon — inverted -->
+  <div style="background:#0e1c14;border-radius:16px;padding:48px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:200px;">
+    <div style="width:96px;height:96px;border-radius:20px;background:#88aa99;display:flex;align-items:center;justify-content:center;">
+      <span class="tf-playfair" style="position:relative;display:inline-block;font-size:60px;color:#0e1c14;line-height:1;padding-bottom:17px;">
+        S
+        <span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#0e1c14;"></span>
+      </span>
+    </div>
+    <span style="font-size:10px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-top:24px;">App icon · alternate</span>
+    <span style="font-size:10px;color:var(--text-dim);margin-top:4px;">Inverted (green container)</span>
+  </div>
+
+</div>
+
+<!-- Extended UI palette -->
+<div class="section-label">Extended UI palette — proposed</div>
+<p class="section-note" style="max-width:760px;">
+  Builds out from <code>#88aa99</code> and the forest greens you already have. Functional colours (success/warning/error/info) are picked to share the muted, earthy tonal range so they don't break the brand feel.
+</p>
+
+<!-- Brand greens -->
+<p class="section-note" style="margin-top:24px;">Brand green — primary, with tints and shades for UI states:</p>
+<div class="row" style="background:var(--bg-card);padding:24px;gap:14px;">
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#d3dfd7;"></div>
+    <span class="label" style="color:var(--text-dim);">#d3dfd7</span>
+    <span style="font-size:9px;color:var(--text-dim);">tint-2 · subtle bg</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#b0c7bb;"></div>
+    <span class="label" style="color:var(--text-dim);">#b0c7bb</span>
+    <span style="font-size:9px;color:var(--text-dim);">tint-1 · hover/light</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#88aa99;box-shadow:0 0 0 2px rgba(136,170,153,0.4);"></div>
+    <span class="label" style="color:var(--text-light);">#88aa99</span>
+    <span style="font-size:9px;color:var(--text-mid);">PRIMARY</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#6c8a7c;"></div>
+    <span class="label" style="color:var(--text-dim);">#6c8a7c</span>
+    <span style="font-size:9px;color:var(--text-dim);">shade-1 · pressed</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#4f6b5f;"></div>
+    <span class="label" style="color:var(--text-dim);">#4f6b5f</span>
+    <span style="font-size:9px;color:var(--text-dim);">shade-2 · deep</span>
+  </div>
+</div>
+
+<!-- Forest surfaces -->
+<p class="section-note" style="margin-top:18px;">Forest greens — surfaces and elevation:</p>
+<div class="row" style="background:var(--bg-card);padding:24px;gap:14px;">
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#0a1410;"></div>
+    <span class="label" style="color:var(--text-dim);">#0a1410</span>
+    <span style="font-size:9px;color:var(--text-dim);">page · deepest</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#0e1c14;"></div>
+    <span class="label" style="color:var(--text-dim);">#0e1c14</span>
+    <span style="font-size:9px;color:var(--text-dim);">surface · primary</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#111f17;"></div>
+    <span class="label" style="color:var(--text-dim);">#111f17</span>
+    <span style="font-size:9px;color:var(--text-dim);">card · elevated</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#1c2e22;"></div>
+    <span class="label" style="color:var(--text-dim);">#1c2e22</span>
+    <span style="font-size:9px;color:var(--text-dim);">border · subtle</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#243a2c;"></div>
+    <span class="label" style="color:var(--text-dim);">#243a2c</span>
+    <span style="font-size:9px;color:var(--text-dim);">modal · highest</span>
+  </div>
+</div>
+
+<!-- Text colours -->
+<p class="section-note" style="margin-top:18px;">Text colours on forest surfaces:</p>
+<div class="row" style="background:#0e1c14;padding:24px;gap:14px;">
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#c8ddd2;display:flex;align-items:center;justify-content:center;color:#0e1c14;font-size:32px;font-weight:600;">Aa</div>
+    <span class="label" style="color:#c8ddd2;">#c8ddd2</span>
+    <span style="font-size:9px;color:#7a9e8a;">primary · body</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#111f17;display:flex;align-items:center;justify-content:center;color:#7a9e8a;font-size:32px;font-weight:600;">Aa</div>
+    <span class="label" style="color:#7a9e8a;">#7a9e8a</span>
+    <span style="font-size:9px;color:#7a9e8a;">secondary · meta</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#111f17;display:flex;align-items:center;justify-content:center;color:#4a6655;font-size:32px;font-weight:600;">Aa</div>
+    <span class="label" style="color:#7a9e8a;">#4a6655</span>
+    <span style="font-size:9px;color:#7a9e8a;">tertiary · dim</span>
+  </div>
+</div>
+
+<!-- Functional colours -->
+<p class="section-note" style="margin-top:18px;">Functional colours — muted to match the palette tone:</p>
+<div class="row" style="background:var(--bg-card);padding:24px;gap:14px;">
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#88aa99;"></div>
+    <span class="label" style="color:var(--text-dim);">#88aa99</span>
+    <span style="font-size:9px;color:var(--text-dim);">success</span>
+    <span style="font-size:8px;color:var(--text-dim);">(= primary)</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#c4a878;"></div>
+    <span class="label" style="color:var(--text-dim);">#c4a878</span>
+    <span style="font-size:9px;color:var(--text-dim);">warning</span>
+    <span style="font-size:8px;color:var(--text-dim);">muted amber</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#b87a6d;"></div>
+    <span class="label" style="color:var(--text-dim);">#b87a6d</span>
+    <span style="font-size:9px;color:var(--text-dim);">error</span>
+    <span style="font-size:8px;color:var(--text-dim);">muted clay</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#7a93a6;"></div>
+    <span class="label" style="color:var(--text-dim);">#7a93a6</span>
+    <span style="font-size:9px;color:var(--text-dim);">info</span>
+    <span style="font-size:8px;color:var(--text-dim);">muted slate</span>
+  </div>
+</div>
+
+<!-- Sample UI block -->
+<p class="section-note" style="margin-top:18px;">Mini UI test — how the palette holds together in context:</p>
+<div style="background:#0e1c14;border-radius:16px;padding:28px;max-width:1200px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+
+  <!-- Card 1 -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7a9e8a;margin-bottom:8px;">Today</div>
+    <div style="font-size:28px;font-weight:600;color:#c8ddd2;margin-bottom:6px;">2,184 <span style="font-size:14px;color:#7a9e8a;font-weight:400;">kcal</span></div>
+    <div style="font-size:11px;color:#7a9e8a;margin-bottom:14px;">98% of goal</div>
+    <div style="height:4px;border-radius:2px;background:#1c2e22;overflow:hidden;">
+      <div style="width:98%;height:100%;background:#88aa99;"></div>
+    </div>
+  </div>
+
+  <!-- Card 2 — success state -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#88aa99;margin-bottom:8px;">PR ★</div>
+    <div style="font-size:16px;font-weight:500;color:#c8ddd2;margin-bottom:4px;">Bench Press</div>
+    <div style="font-size:13px;color:#7a9e8a;">85kg × 5 reps</div>
+    <div style="display:inline-block;margin-top:12px;background:#88aa9920;border:1px solid #88aa9940;color:#88aa99;font-size:10px;padding:3px 8px;border-radius:6px;letter-spacing:0.5px;">NEW PR</div>
+  </div>
+
+  <!-- Card 3 — warning state -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c4a878;margin-bottom:8px;">Reminder</div>
+    <div style="font-size:14px;color:#c8ddd2;margin-bottom:6px;line-height:1.4;">You haven't logged weight in 4 days</div>
+    <div style="display:inline-block;margin-top:8px;background:#c4a87820;border:1px solid #c4a87840;color:#c4a878;font-size:10px;padding:3px 8px;border-radius:6px;letter-spacing:0.5px;">DUE</div>
+  </div>
+
+  <!-- Card 4 — button -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7a9e8a;margin-bottom:6px;">Quick add</div>
+      <div style="font-size:13px;color:#c8ddd2;line-height:1.4;">Log a meal with one tap</div>
+    </div>
+    <button style="background:#88aa99;color:#0e1c14;border:none;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Open logger</button>
+  </div>
+
+</div>
+
+<!-- Typography summary -->
+<p class="section-note" style="margin-top:32px;">Typography:</p>
+<div class="row" style="background:var(--bg-card);padding:24px;gap:32px;flex-wrap:wrap;">
+  <div style="flex:1;min-width:200px;">
+    <div style="font-family:'Playfair Display',serif;font-weight:700;font-size:48px;color:#c8ddd2;line-height:1;">Sg</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;">Playfair Display 700</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">Brand mark · the S's in SATIS</div>
+  </div>
+  <div style="flex:1;min-width:200px;">
+    <div style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:48px;color:#c8ddd2;line-height:1;">Ati</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;">Cormorant Garamond 600</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">Connecting letters · A T I</div>
+  </div>
+  <div style="flex:1;min-width:200px;">
+    <div style="font-family:system-ui,sans-serif;font-weight:500;font-size:48px;color:#c8ddd2;line-height:1;">Aa</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;">System UI · existing</div>
+    <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">In-app body text · unchanged</div>
+  </div>
+</div>
+
+<!-- ========================================================== -->
+<!-- 17. EXPANDED PALETTE — richer forest + accent colours       -->
+<!-- ========================================================== -->
+<div style="border-top:1px solid var(--border);margin:64px 0 32px;padding-top:48px;max-width:1200px;">
+  <div class="section-label" style="margin-top:0;">Expanded palette — adding life to the UI</div>
+  <p class="section-note" style="max-width:760px;">
+    Two additions: <strong style="color:var(--text-mid);">richer forest greens</strong> for accent surfaces (the dark <code>#0e1c14</code> stays as the deep background, but more alive forest tones come in for hero/accent panels), and a <strong style="color:var(--text-mid);">secondary accent palette</strong> drawn from a nature/garden vocabulary — clay, moss, slate, honey — to bring variety without breaking the brand feel.
+  </p>
+</div>
+
+<!-- Richer forest greens -->
+<p class="section-note">Richer forest green variations — for hero panels, accent surfaces, badges:</p>
+<div class="row" style="background:var(--bg-card);padding:24px;gap:14px;">
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#0a1410;"></div>
+    <span class="label" style="color:var(--text-dim);">#0a1410</span>
+    <span style="font-size:9px;color:var(--text-dim);">page · deepest</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#0e1c14;"></div>
+    <span class="label" style="color:var(--text-dim);">#0e1c14</span>
+    <span style="font-size:9px;color:var(--text-dim);">surface · primary</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#163020;"></div>
+    <span class="label" style="color:var(--text-dim);">#163020</span>
+    <span style="font-size:9px;color:var(--text-dim);">NEW · elevated</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#1d4029;"></div>
+    <span class="label" style="color:var(--text-dim);">#1d4029</span>
+    <span style="font-size:9px;color:var(--text-dim);">NEW · accent panel</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#244e34;"></div>
+    <span class="label" style="color:var(--text-dim);">#244e34</span>
+    <span style="font-size:9px;color:var(--text-dim);">NEW · hero forest</span>
+  </div>
+  <div class="col">
+    <div style="width:80px;height:80px;border-radius:14px;background:#2c5b3d;"></div>
+    <span class="label" style="color:var(--text-dim);">#2c5b3d</span>
+    <span style="font-size:9px;color:var(--text-dim);">NEW · bright accent</span>
+  </div>
+</div>
+
+<!-- Secondary accent palette -->
+<p class="section-note" style="margin-top:18px;">Secondary accent palette — clay, moss, slate, honey:</p>
+<div class="row" style="background:var(--bg-card);padding:24px;gap:14px;">
+  <div class="col">
+    <div style="width:90px;height:90px;border-radius:14px;background:#c4a087;"></div>
+    <span class="label" style="color:var(--text-dim);">#c4a087</span>
+    <span style="font-size:9px;color:var(--text-dim);">CLAY · warm earth</span>
+  </div>
+  <div class="col">
+    <div style="width:90px;height:90px;border-radius:14px;background:#a8b572;"></div>
+    <span class="label" style="color:var(--text-dim);">#a8b572</span>
+    <span style="font-size:9px;color:var(--text-dim);">MOSS · yellow-green</span>
+  </div>
+  <div class="col">
+    <div style="width:90px;height:90px;border-radius:14px;background:#7a93a6;"></div>
+    <span class="label" style="color:var(--text-dim);">#7a93a6</span>
+    <span style="font-size:9px;color:var(--text-dim);">SLATE · cool grey-blue</span>
+  </div>
+  <div class="col">
+    <div style="width:90px;height:90px;border-radius:14px;background:#c4a878;"></div>
+    <span class="label" style="color:var(--text-dim);">#c4a878</span>
+    <span style="font-size:9px;color:var(--text-dim);">HONEY · warm gold</span>
+  </div>
+  <div class="col">
+    <div style="width:90px;height:90px;border-radius:14px;background:#b87a6d;"></div>
+    <span class="label" style="color:var(--text-dim);">#b87a6d</span>
+    <span style="font-size:9px;color:var(--text-dim);">CLAY-DEEP · red-earth</span>
+  </div>
+</div>
+
+<p class="section-note" style="margin-top:8px;max-width:760px;">
+  Suggested role assignment: <strong>moss</strong> for positive energy / streaks / consistency (alternate to sage), <strong>honey</strong> for highlights / reminders / warmth, <strong>clay</strong> for warnings or warmer accents, <strong>slate</strong> for info / secondary metrics / charts where a cool contrast helps, <strong>clay-deep</strong> for errors. Each one has the same desaturated, earthy character — they sit in the same tonal world.
+</p>
+
+<!-- Updated UI sample using the expanded palette -->
+<p class="section-note" style="margin-top:24px;">Updated UI sample — palette woven into the actual data, not just decoration:</p>
+<div style="background:#0a1410;border-radius:16px;padding:28px;max-width:1200px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+
+  <!-- Card 1 — Today (number in BRAND green, not white) -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7a9e8a;margin-bottom:8px;">Today</div>
+    <div style="font-size:28px;font-weight:600;color:#88aa99;margin-bottom:6px;line-height:1;font-family:'Cormorant Garamond',serif;">2,184 <span style="font-size:14px;color:#7a9e8a;font-weight:400;font-family:system-ui;">kcal</span></div>
+    <div style="font-size:11px;color:#7a9e8a;margin-bottom:14px;">98% of goal</div>
+    <div style="height:4px;border-radius:2px;background:#1c2e22;overflow:hidden;">
+      <div style="width:98%;height:100%;background:#88aa99;"></div>
+    </div>
+  </div>
+
+  <!-- Card 2 — PR using MOSS accent (yellow-green positive) -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#a8b572;margin-bottom:8px;">PR ★</div>
+    <div style="font-size:16px;font-weight:500;color:#c8ddd2;margin-bottom:4px;">Bench Press</div>
+    <div style="font-size:13px;color:#7a9e8a;">85kg × 5 reps</div>
+    <div style="display:inline-block;margin-top:12px;background:#a8b57220;border:1px solid #a8b57240;color:#a8b572;font-size:10px;padding:3px 8px;border-radius:6px;letter-spacing:0.5px;">NEW PR</div>
+  </div>
+
+  <!-- Card 3 — Reminder in HONEY -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#c4a878;margin-bottom:8px;">Reminder</div>
+    <div style="font-size:14px;color:#c8ddd2;margin-bottom:6px;line-height:1.4;">Weigh-in due — last logged Tuesday</div>
+    <div style="display:inline-block;margin-top:8px;background:#c4a87820;border:1px solid #c4a87840;color:#c4a878;font-size:10px;padding:3px 8px;border-radius:6px;letter-spacing:0.5px;">DUE</div>
+  </div>
+
+  <!-- Card 4 — HERO panel using RICHER FOREST as background -->
+  <div style="background:#1d4029;border:1px solid #2c5b3d;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#88aa99;margin-bottom:8px;">Focus</div>
+      <div style="font-size:18px;font-weight:500;color:#c8ddd2;line-height:1.3;font-family:'Cormorant Garamond',serif;">Push session — 4 exercises queued</div>
+    </div>
+    <button style="background:#88aa99;color:#0a1410;border:none;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;">Start workout</button>
+  </div>
+
+  <!-- Card 5 — Info card using SLATE -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7a93a6;margin-bottom:8px;">Trend</div>
+    <div style="font-size:14px;color:#c8ddd2;margin-bottom:4px;">7-day average</div>
+    <div style="font-size:24px;font-weight:600;color:#7a93a6;line-height:1;margin-bottom:4px;font-family:'Cormorant Garamond',serif;">102.4 <span style="font-size:13px;color:#7a9e8a;font-weight:400;font-family:system-ui;">kg</span></div>
+    <div style="font-size:11px;color:#7a9e8a;">−0.6 kg vs last week</div>
+  </div>
+
+  <!-- Card 6 — Daily streak using brand green deeply -->
+  <div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:18px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;">
+    <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7a9e8a;">Streak</div>
+    <div style="font-size:38px;font-weight:600;color:#88aa99;line-height:1;font-family:'Cormorant Garamond',serif;">12<span style="font-size:14px;color:#7a9e8a;font-weight:400;font-family:system-ui;"> days</span></div>
+    <div style="display:flex;gap:3px;margin-top:4px;">
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;"></div>
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;"></div>
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;"></div>
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;"></div>
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;"></div>
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;"></div>
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;"></div>
+      <div style="width:9px;height:9px;border-radius:2px;background:#88aa99;opacity:0.4;"></div>
+    </div>
+  </div>
+
+</div>
+
+<p class="section-note" style="margin-top:18px;max-width:760px;">
+  Key changes vs the earlier sample: the kcal and weight numbers are now in the brand green / slate (not white), so the palette actually <em>shows up</em> in the meaningful data. The "Focus" card uses <code>#1d4029</code> as a richer forest background — it draws the eye without breaking the dark theme. Moss replaces sage on the PR card so similar-meaning states have visual variety. Cards still feel like the same family — just no longer monochrome.
+</p>
+
+<!-- ========================================================== -->
+<!-- 18. CHARTS + NAV ACTIVE STATE                                -->
+<!-- ========================================================== -->
+<div style="border-top:1px solid var(--border);margin:64px 0 32px;padding-top:48px;max-width:1200px;">
+  <div class="section-label" style="margin-top:0;">UI in detail — charts &amp; nav active state</div>
+  <p class="section-note" style="max-width:760px;">
+    Two specific patterns to lock: how the bright accent forest (<code>#2c5b3d</code>) reads in charts, and how to signal the active nav tab now that brand green and primary text are too close in luminance for a colour-only swap.
+  </p>
+</div>
+
+<!-- Charts -->
+<p class="section-note">Protein tracker — weekly bars in <code>#2c5b3d</code> with brand sage target line:</p>
+<div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:24px;max-width:1200px;margin-bottom:18px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7a9e8a;margin-bottom:6px;">Protein · this week</div>
+      <div style="font-size:28px;font-weight:600;color:#88aa99;line-height:1;font-family:'Cormorant Garamond',serif;">178<span style="font-size:13px;color:#7a9e8a;font-weight:400;font-family:system-ui;">g avg</span></div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:10px;color:#7a9e8a;margin-bottom:2px;">Target</div>
+      <div style="font-size:14px;color:#88aa99;font-family:'Cormorant Garamond',serif;">160g</div>
+    </div>
+  </div>
+  <!-- SVG bar chart -->
+  <svg viewBox="0 0 600 200" width="100%" style="display:block;">
+    <!-- gridlines -->
+    <line x1="0" y1="40" x2="600" y2="40" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+    <line x1="0" y1="80" x2="600" y2="80" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+    <line x1="0" y1="120" x2="600" y2="120" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+    <!-- target line at 160g -->
+    <line x1="0" y1="64" x2="600" y2="64" stroke="#88aa99" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+    <text x="592" y="58" text-anchor="end" fill="#88aa99" font-size="10" font-family="system-ui">160g target</text>
+    <!-- bars -->
+    <g>
+      <rect x="20"  y="48"  width="58" height="120" fill="#2c5b3d" rx="3"/>
+      <rect x="100" y="72"  width="58" height="96"  fill="#2c5b3d" rx="3"/>
+      <rect x="180" y="40"  width="58" height="128" fill="#2c5b3d" rx="3"/>
+      <rect x="260" y="88"  width="58" height="80"  fill="#244e34" rx="3"/>
+      <rect x="340" y="32"  width="58" height="136" fill="#2c5b3d" rx="3"/>
+      <rect x="420" y="56"  width="58" height="112" fill="#2c5b3d" rx="3"/>
+      <rect x="500" y="100" width="58" height="68"  fill="#244e34" rx="3"/>
+    </g>
+    <!-- labels -->
+    <g font-family="system-ui" font-size="10" fill="#7a9e8a" text-anchor="middle">
+      <text x="49"  y="186">M</text>
+      <text x="129" y="186">T</text>
+      <text x="209" y="186">W</text>
+      <text x="289" y="186">T</text>
+      <text x="369" y="186">F</text>
+      <text x="449" y="186">S</text>
+      <text x="529" y="186">S</text>
+    </g>
+    <!-- gram values above bars -->
+    <g font-family="Cormorant Garamond,serif" font-size="11" fill="#c8ddd2" text-anchor="middle" font-weight="600">
+      <text x="49"  y="42">194</text>
+      <text x="129" y="66">170</text>
+      <text x="209" y="34">204</text>
+      <text x="289" y="82">154</text>
+      <text x="369" y="26">208</text>
+      <text x="449" y="50">186</text>
+      <text x="529" y="94">132</text>
+    </g>
+  </svg>
+</div>
+<p class="section-note" style="max-width:760px;margin-top:-4px;font-size:11px;">
+  Bars at <code>#2c5b3d</code>, days under target dimmed slightly to <code>#244e34</code> for at-a-glance feedback. Target line in sage. Numbers in Cormorant — feels like the brand. The brightness of the bars carries the data; the sage line and headline number carry the brand.
+</p>
+
+<!-- Weight trend line chart -->
+<p class="section-note" style="margin-top:24px;">Weight trend — line in <code>#2c5b3d</code> with sage fill under:</p>
+<div style="background:#111f17;border:1px solid #1c2e22;border-radius:12px;padding:24px;max-width:1200px;margin-bottom:18px;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px;">
+    <div>
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7a9e8a;margin-bottom:6px;">Weight · 30 days</div>
+      <div style="font-size:28px;font-weight:600;color:#88aa99;line-height:1;font-family:'Cormorant Garamond',serif;">102.4<span style="font-size:13px;color:#7a9e8a;font-weight:400;font-family:system-ui;">kg</span></div>
+      <div style="font-size:11px;color:#7a93a6;margin-top:4px;">↓ 1.8 kg this month</div>
+    </div>
+  </div>
+  <svg viewBox="0 0 600 220" width="100%" style="display:block;">
+    <defs>
+      <linearGradient id="weightFill" x1="0" x2="0" y1="0" y2="1">
+        <stop offset="0%"  stop-color="#88aa99" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#88aa99" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <!-- gridlines -->
+    <line x1="0" y1="40"  x2="600" y2="40"  stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+    <line x1="0" y1="90"  x2="600" y2="90"  stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+    <line x1="0" y1="140" x2="600" y2="140" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+    <line x1="0" y1="190" x2="600" y2="190" stroke="#1c2e22" stroke-width="1" stroke-dasharray="2,4"/>
+    <!-- y-axis labels -->
+    <g font-family="system-ui" font-size="9" fill="#4a6655">
+      <text x="0" y="38">104</text>
+      <text x="0" y="88">103</text>
+      <text x="0" y="138">102</text>
+      <text x="0" y="188">101</text>
+    </g>
+    <!-- area under line -->
+    <path d="M 30 60
+             L 80 75
+             L 130 65
+             L 180 95
+             L 230 85
+             L 280 110
+             L 330 100
+             L 380 125
+             L 430 115
+             L 480 140
+             L 530 130
+             L 580 145
+             L 580 200 L 30 200 Z"
+          fill="url(#weightFill)"/>
+    <!-- main line -->
+    <path d="M 30 60 L 80 75 L 130 65 L 180 95 L 230 85 L 280 110 L 330 100 L 380 125 L 430 115 L 480 140 L 530 130 L 580 145"
+          stroke="#2c5b3d" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- dots -->
+    <g fill="#2c5b3d">
+      <circle cx="30"  cy="60"  r="3"/>
+      <circle cx="80"  cy="75"  r="3"/>
+      <circle cx="130" cy="65"  r="3"/>
+      <circle cx="180" cy="95"  r="3"/>
+      <circle cx="230" cy="85"  r="3"/>
+      <circle cx="280" cy="110" r="3"/>
+      <circle cx="330" cy="100" r="3"/>
+      <circle cx="380" cy="125" r="3"/>
+      <circle cx="430" cy="115" r="3"/>
+      <circle cx="480" cy="140" r="3"/>
+      <circle cx="530" cy="130" r="3"/>
+      <circle cx="580" cy="145" r="4" fill="#88aa99" stroke="#0e1c14" stroke-width="2"/>
+    </g>
+    <!-- x-axis labels -->
+    <g font-family="system-ui" font-size="9" fill="#4a6655" text-anchor="middle">
+      <text x="30"  y="215">May 14</text>
+      <text x="180" y="215">May 21</text>
+      <text x="330" y="215">May 28</text>
+      <text x="480" y="215">Jun 4</text>
+      <text x="580" y="215">Jun 11</text>
+    </g>
+  </svg>
+</div>
+<p class="section-note" style="max-width:760px;margin-top:-4px;font-size:11px;">
+  Line in <code>#2c5b3d</code>, area fill in sage at low opacity. Most-recent point gets a slightly larger sage dot to draw the eye — that's where "now" lives. Reads as quietly confident; the brand colour glows under the data rather than being shouted on top.
+</p>
+
+<!-- Nav active-state patterns -->
+<div class="section-label" style="margin-top:48px;">Nav active state — 4 patterns to compare</div>
+<p class="section-note" style="max-width:760px;">
+  Vibrant green on selected + white on others worked in the Pump UI because the contrast was loud. With sage as primary and similar-luminance light text, the same approach goes muddy. Four patterns below, each addressing the contrast problem differently. The active tab in every example is <strong>Food</strong>.
+</p>
+
+<!-- Pattern 1 — Pill background -->
+<div style="background:#0e1c14;border:1px solid #1c2e22;border-radius:16px;padding:18px;max-width:1200px;margin-bottom:14px;">
+  <div style="display:flex;justify-content:space-around;align-items:center;">
+    <!-- Home -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Home</span>
+    </div>
+    <!-- Food (active — pill bg) -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="display:flex;align-items:center;gap:6px;background:#1d4029;padding:6px 14px;border-radius:14px;">
+        <div style="width:18px;height:18px;background:#88aa99;border-radius:4px;"></div>
+        <span style="font-size:11px;color:#88aa99;font-weight:600;letter-spacing:0.5px;">Food</span>
+      </div>
+    </div>
+    <!-- Schedule -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:50%;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Schedule</span>
+    </div>
+    <!-- Doc -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;border-style:dashed;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Doc</span>
+    </div>
+    <!-- More -->
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;">
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+      </div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">More</span>
+    </div>
+  </div>
+</div>
+<p class="section-note" style="margin-top:-4px;font-size:11px;"><strong style="color:var(--text-mid);">A — Pill background.</strong> Active tab gets a rounded <code>#1d4029</code> pill containing the icon + label in <code>#88aa99</code>. Inactive: outline icons in dim text. The pill carries the work; colour is supporting.</p>
+
+<!-- Pattern 2 — Top indicator bar -->
+<div style="background:#0e1c14;border:1px solid #1c2e22;border-radius:16px;padding:18px;max-width:1200px;margin-bottom:14px;">
+  <div style="display:flex;justify-content:space-around;align-items:flex-start;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:7px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Home</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:3px;background:#88aa99;border-radius:0 0 2px 2px;margin-bottom:4px;"></div>
+      <div style="width:24px;height:24px;background:#88aa99;border-radius:6px;"></div>
+      <span style="font-size:10px;color:#88aa99;font-weight:600;letter-spacing:0.5px;">Food</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:7px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:50%;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Schedule</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:7px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;border-style:dashed;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Doc</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-top:7px;">
+      <div style="width:24px;height:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;">
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+      </div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">More</span>
+    </div>
+  </div>
+</div>
+<p class="section-note" style="margin-top:-4px;font-size:11px;"><strong style="color:var(--text-mid);">B — Top indicator + filled icon.</strong> 3px top bar in <code>#88aa99</code> over the active tab, icon flips from outline (inactive) to filled (active). The structural element (the bar) does the work; colour reinforces. Most iOS-native feeling.</p>
+
+<!-- Pattern 3 — Filled icon + label, no decoration -->
+<div style="background:#0e1c14;border:1px solid #1c2e22;border-radius:16px;padding:18px;max-width:1200px;margin-bottom:14px;">
+  <div style="display:flex;justify-content:space-around;align-items:center;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Home</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:26px;height:26px;background:#88aa99;border-radius:7px;"></div>
+      <span style="font-size:11px;color:#c8ddd2;font-weight:600;letter-spacing:0.5px;">Food</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:50%;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Schedule</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;border-style:dashed;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Doc</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+      <div style="width:24px;height:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;">
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+      </div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">More</span>
+    </div>
+  </div>
+</div>
+<p class="section-note" style="margin-top:-4px;font-size:11px;"><strong style="color:var(--text-mid);">C — Filled icon only, label in light text.</strong> Active gets a slightly larger filled sage icon; label stays in <code>#c8ddd2</code> (same as inactive labels but slightly bolder). The icon weight does the work — closest to "minimal" but the contrast is subtler than A or B.</p>
+
+<!-- Pattern 4 — Underline + colour shift to a *contrast* hue -->
+<div style="background:#0e1c14;border:1px solid #1c2e22;border-radius:16px;padding:18px;max-width:1200px;margin-bottom:14px;">
+  <div style="display:flex;justify-content:space-around;align-items:flex-end;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-bottom:5px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Home</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+      <div style="width:24px;height:24px;background:#c4a878;border-radius:6px;"></div>
+      <span style="font-size:11px;color:#c4a878;font-weight:600;letter-spacing:0.5px;">Food</span>
+      <div style="width:18px;height:1.5px;background:#c4a878;margin-top:1px;"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-bottom:5px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:50%;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Schedule</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-bottom:5px;">
+      <div style="width:24px;height:24px;border:1.5px solid #7a9e8a;border-radius:6px;border-style:dashed;"></div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">Doc</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-bottom:5px;">
+      <div style="width:24px;height:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;">
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+        <div style="width:14px;height:1.5px;background:#7a9e8a;"></div>
+      </div>
+      <span style="font-size:10px;color:#7a9e8a;letter-spacing:0.5px;">More</span>
+    </div>
+  </div>
+</div>
+<p class="section-note" style="margin-top:-4px;font-size:11px;"><strong style="color:var(--text-mid);">D — Active in contrast hue (honey) + underline.</strong> Active tab uses <code>#c4a878</code> (honey) instead of sage — chromatic contrast does the job that luminance can't. Brand stays sage; nav uses a sibling colour. Most distinctive but creates a "nav uses a different colour" rule to remember.</p>
+
+<p class="section-note" style="max-width:760px;margin-top:18px;">
+  <strong style="color:var(--text-mid);">My honest take:</strong> Pattern <strong style="color:var(--text-light);">B (top indicator + filled icon)</strong> is the right pick — it solves the luminance-collision problem by adding a structural cue, stays inside the sage palette so the brand carries through, and matches the platform pattern users already expect from native apps. A is also good if you want a softer "tablet-ish" feel. D is intriguing but introduces a "nav uses honey" rule that's harder to remember and easier to break later. C is the most minimal but probably *too* subtle for a primary navigation control.
+</p>
+
+<p style="margin-top:48px;font-size:12px;color:var(--text-dim);max-width:760px;line-height:1.7;">
+  <strong style="color:var(--text-mid);">My read after building this:</strong>
+  The brand-doc shortlist (Cormorant / Playfair / Baskerville) was framed around editorial elegance, but an S-mark inside a 56px container is a different problem from a hero headline. The Garamonds at 600–700 are caught between worlds. The strongest options for what you actually need are
+  <strong style="color:var(--text-light);">C (Cormorant 700)</strong> — retains the refined feel the brand doc asked for, and the heavier weight gives it a fighting chance at icon size — or
+  <strong style="color:var(--text-light);">F (EB Garamond)</strong> — slightly more workhorse character but reads as historic/considered rather than systemy.
+  If neither of those land, <strong style="color:var(--text-light);">A (Georgia)</strong> is the safe ground you already trust from Hale.
+  Playfair (D) and Lora (H) feel like the wrong vibe for "Satis" — too editorial / too soft respectively.
+</p>
+
+</body>
+</html>

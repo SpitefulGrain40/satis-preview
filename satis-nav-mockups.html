@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0a1410">
+<title>Satis — bottom nav active-state mockups</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Literata:opsz,wght@7..72,500&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --page:    #0a1410;
+    --surface: #0e1c14;
+    --card:    #111f17;
+    --border:  #1c2e22;
+    --sage:    #88aa99;
+    --forest-panel: #1d4029;
+    --honey:   #c4a878;
+    --t-primary:  #c8ddd2;
+    --t-secondary:#7a9e8a;
+    --t-dim:      #4a6655;
+  }
+  body {
+    background: var(--page);
+    color: var(--t-primary);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    min-height: 100vh;
+    padding: 40px 16px 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; }
+
+  h1 {
+    font-size: 12px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--t-dim);
+    text-align: center; margin-bottom: 6px;
+  }
+  p.sub {
+    font-size: 12px; color: var(--t-dim); text-align: center;
+    line-height: 1.6; margin-bottom: 36px;
+  }
+
+  .label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--t-secondary); margin: 32px 0 4px;
+  }
+  .desc {
+    font-size: 12px; color: var(--t-dim); line-height: 1.6;
+    margin-bottom: 14px; max-width: 440px;
+  }
+  .desc strong { color: var(--t-secondary); }
+
+  /* ---- Bottom nav shell ---- */
+  .nav {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 12px 8px 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+  }
+  .tab {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 0;
+    cursor: pointer;
+    position: relative;
+  }
+  .tab svg { width: 23px; height: 23px; display: block; }
+  .tab .name {
+    font-family: 'Literata', Georgia, serif;
+    font-size: 11px; letter-spacing: 0.3px;
+    color: var(--t-secondary);
+  }
+
+  /* Default (inactive) icon style */
+  .tab .ic {
+    color: var(--t-secondary);
+    display: flex; align-items: center; justify-content: center;
+    transition: color .15s;
+  }
+
+  /* The brand hairline — 60% width motif */
+  .underline {
+    height: 1.5px;
+    background: var(--sage);
+    border-radius: 1px;
+    width: 60%;
+  }
+
+  /* =========================================================
+     VARIANT 1 — Icon over hairline (echoes the brand S-mark)
+     ========================================================= */
+  .v1 .tab.active .ic { color: var(--sage); }
+  .v1 .tab.active .name { color: var(--sage); font-weight: 600; }
+  .v1 .tab .rule { height: 1.5px; width: 0; background: var(--sage); border-radius: 1px; transition: width .15s; }
+  .v1 .tab.active .rule { width: 60%; }
+  /* rule sits between icon and label, like the S underline */
+
+  /* =========================================================
+     VARIANT 2 — Filled icon + hairline under label
+     ========================================================= */
+  .v2 .tab.active .ic { color: var(--sage); }
+  .v2 .tab.active .ic svg { fill: var(--sage); fill-opacity: 0.16; }
+  .v2 .tab.active .name { color: var(--sage); font-weight: 600; }
+  .v2 .tab .rule { height: 1.5px; width: 0; background: var(--sage); border-radius: 1px; transition: width .15s; margin-top: 1px; }
+  .v2 .tab.active .rule { width: 60%; }
+
+  /* =========================================================
+     VARIANT 3 — Neutral icon, sage label + hairline (quiet)
+     ========================================================= */
+  .v3 .tab.active .ic { color: var(--t-primary); }
+  .v3 .tab.active .name { color: var(--t-primary); font-weight: 600; }
+  .v3 .tab .rule { height: 1.5px; width: 0; background: var(--sage); border-radius: 1px; transition: width .15s; }
+  .v3 .tab.active .rule { width: 60%; }
+
+  /* =========================================================
+     VARIANT 4 — Hairline under icon only (label below, no colour)
+     The purest echo: icon + hairline = the mark; label stays calm
+     ========================================================= */
+  .v4 .tab.active .ic { color: var(--sage); }
+  .v4 .tab .icwrap {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .v4 .tab .rule { height: 1.5px; width: 0; background: var(--sage); border-radius: 1px; transition: width .15s; }
+  .v4 .tab.active .rule { width: 64%; }
+  .v4 .tab.active .name { color: var(--t-primary); }
+
+  /* =========================================================
+     VARIANT 5 — Pill + hairline accent
+     ========================================================= */
+  .v5 .tab.active .ic { color: var(--sage); }
+  .v5 .tab.active .name { color: var(--sage); font-weight: 600; }
+  .v5 .tab.active .pill {
+    background: var(--forest-panel);
+    border-radius: 12px;
+    padding: 5px 10px 3px;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .v5 .tab .pill { padding: 5px 10px 3px; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .v5 .tab .rule { height: 1.5px; width: 0; background: var(--sage); border-radius: 1px; transition: width .15s; }
+  .v5 .tab.active .rule { width: 60%; }
+
+  /* =========================================================
+     FINAL — cream/white keyline under the word (chosen)
+     icon + label + 1.5px keyline all in cream #c8ddd2,
+     underline 64% width (V4), positioned under the word
+     ========================================================= */
+  .final .tab .ic { color: var(--t-secondary); }
+  .final .tab .name { color: var(--t-secondary); }
+  .final .tab.active .ic { color: var(--t-primary); }
+  .final .tab.active .name { color: var(--t-primary); font-weight: 600; }
+  .final .tab .rule {
+    height: 1.5px; width: 0; background: var(--t-primary);
+    border-radius: 1px; transition: width .15s; margin-top: 3px;
+  }
+  .final .tab.active .rule { width: 44%; }
+
+  .footnote {
+    font-size: 12px; color: var(--t-dim); line-height: 1.7;
+    max-width: 440px; margin-top: 40px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .footnote strong { color: var(--t-secondary); }
+
+  /* A faux content area above the nav for context */
+  .screen {
+    background: var(--page);
+    border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0;
+    border-bottom: none;
+    padding: 22px 20px 14px;
+    margin-bottom: -1px;
+  }
+  .screen .wm {
+    font-size: 22px; letter-spacing: 8px; text-transform: uppercase;
+    color: var(--sage); -webkit-font-smoothing: antialiased;
+  }
+  .screen .wm .pf { font-family: 'Playfair Display', serif; font-weight: 700; }
+  .screen .wm .cg { font-family: 'Cormorant Garamond', serif; font-weight: 600; }
+  .stack { background: var(--surface); border: 1px solid var(--border); border-radius: 0 0 20px 20px; padding: 0 12px 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Satis — bottom nav · active state</h1>
+  <p class="sub">
+    Real simplified icons (Lucide-style), with the brand's <strong>60% hairline</strong>
+    as the active-state motif. Active tab = <strong>Food</strong> in every example.
+  </p>
+
+  <!-- FINAL -->
+  <div class="label" style="color:var(--sage);">★ Final direction — cream keyline under the word</div>
+  <p class="desc">Active icon + label + <strong>1.5px keyline all in cream</strong> (<code style="color:var(--t-secondary)">#c8ddd2</code>). Underline sits <strong>under the word</strong> at Variant 4's width (64%). Brain icon now used for Doc. Inactive tabs in muted secondary.</p>
+  <div class="nav final" id="final"></div>
+
+  <!-- In context, top -->
+  <p class="desc" style="margin-top:24px;">Under a screen with the wordmark header:</p>
+  <div class="screen">
+    <span class="wm"><span class="pf">S</span><span class="cg">ATI</span><span class="pf">S</span></span>
+  </div>
+  <div class="stack">
+    <div style="padding:28px 8px;text-align:center;color:var(--t-dim);font-size:12px;">· app content ·</div>
+    <div class="nav final" id="finalb" style="border-radius:16px;"></div>
+  </div>
+
+  <div class="label" style="margin-top:44px;color:var(--t-dim);">— earlier explorations (sage versions) below for reference —</div>
+
+  <!-- VARIANT 1 -->
+  <div class="label">Variant 1 — icon over hairline</div>
+  <p class="desc">The active <strong>icon sits above a 60% sage hairline</strong> — a direct echo of the S-mark (letter over a line). Icon + label go sage. This is the strongest conceptual tie to the logo.</p>
+  <div class="nav v1" id="v1"></div>
+
+  <!-- VARIANT 2 -->
+  <div class="label">Variant 2 — soft-filled icon + hairline</div>
+  <p class="desc">Active icon gets a <strong>subtle sage fill</strong> (16% opacity) plus sage stroke, with the hairline beneath the label. More weight than V1 — easier to spot at a glance.</p>
+  <div class="nav v2" id="v2"></div>
+
+  <!-- VARIANT 3 -->
+  <div class="label">Variant 3 — quiet (light icon + sage hairline)</div>
+  <p class="desc">Icon and label stay <strong>off-white</strong> (just bolder); only the <strong>hairline</strong> is sage. The most restrained — the brand colour appears once, precisely. Risk: subtle on a glance.</p>
+  <div class="nav v3" id="v3"></div>
+
+  <!-- VARIANT 4 -->
+  <div class="label">Variant 4 — hairline under icon, calm label</div>
+  <p class="desc">The <strong>purest mark echo</strong>: sage icon directly over a hairline (just like the S), label stays off-white below. The icon+rule unit reads as a tiny brandmark.</p>
+  <div class="nav v4" id="v4"></div>
+
+  <!-- VARIANT 5 -->
+  <div class="label">Variant 5 — pill + hairline</div>
+  <p class="desc">Active tab gets a <strong>forest-panel pill</strong> behind it, plus sage icon/label and the hairline. Most prominent — but the pill competes a little with the hairline motif.</p>
+  <div class="nav v5" id="v5"></div>
+
+  <!-- In context -->
+  <div class="label">In context — Variant 1 below a screen</div>
+  <p class="desc">How the chosen motif sits under app content, with the wordmark in a header.</p>
+  <div class="screen">
+    <span class="wm"><span class="pf">S</span><span class="cg">ATI</span><span class="pf">S</span></span>
+  </div>
+  <div class="stack">
+    <div style="padding:28px 8px;text-align:center;color:var(--t-dim);font-size:12px;">· app content ·</div>
+    <div class="nav v1" id="v1b" style="border-radius:16px;"></div>
+  </div>
+
+  <p class="footnote">
+    <strong>My recommendation: Variant 1 or 4.</strong> Both make each active tab a
+    miniature of the brand mark (glyph over a 60% hairline), which is a genuinely
+    distinctive, ownable nav pattern — most apps just recolour the icon. V1 carries
+    a touch more clarity (sage label too); V4 is more restrained and elegant. V2 is
+    the safe "louder" option if either feels too quiet on real hardware. V5's pill
+    works but muddies the hairline idea. Test V1 and V4 on your phone before locking.
+  </p>
+
+</div>
+
+<script>
+  // Lucide-style simplified icons (stroke, 24-grid)
+  const I = {
+    home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg>',
+    food: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 0 1-16 0Z"/><path d="M4 12h16"/><path d="M9 4c0 1.5-1 2-1 3.5S9 9 9 9"/><path d="M13 4c0 1.5-1 2-1 3.5S13 9 13 9"/></svg>',
+    schedule: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9.5h18"/><path d="M8 3v3.5"/><path d="M16 3v3.5"/></svg>',
+    doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.5a3 3 0 0 0-5.2-2A3 3 0 0 0 4 5.5a3 3 0 0 0-.8 5A3 3 0 0 0 5 16a3 3 0 0 0 4 2.4 3 3 0 0 0 3 0 3 3 0 0 0 4-2.4 3 3 0 0 0 1.8-5.5A3 3 0 0 0 20 5.5a3 3 0 0 0-2.8-3A3 3 0 0 0 12 4.5Z"/><path d="M12 4.5v14"/></svg>',
+    more: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="19" cy="12" r="1.4"/></svg>',
+  };
+  const tabs = [
+    ['home','Home'], ['food','Food'], ['schedule','Schedule'], ['doc','Doc'], ['more','More']
+  ];
+  const active = 'food';
+
+  function build(id, layout) {
+    const el = document.getElementById(id);
+    el.innerHTML = tabs.map(([key,name]) => {
+      const on = key === active ? ' active' : '';
+      if (layout === 'v4') {
+        return `<div class="tab${on}"><div class="icwrap"><span class="ic">${I[key]}</span><span class="rule"></span></div><span class="name">${name}</span></div>`;
+      }
+      if (layout === 'v5') {
+        return `<div class="tab${on}"><span class="pill"><span class="ic">${I[key]}</span><span class="rule"></span></span><span class="name">${name}</span></div>`;
+      }
+      // v1, v2, v3: icon, label, rule under label
+      return `<div class="tab${on}"><span class="ic">${I[key]}</span><span class="name">${name}</span><span class="rule"></span></div>`;
+    }).join('');
+  }
+
+  build('final','v1'); build('finalb','v1');
+  build('v1','v1'); build('v2','v1'); build('v3','v1');
+  build('v4','v4'); build('v5','v5'); build('v1b','v1');
+</script>
+</body>
+</html>

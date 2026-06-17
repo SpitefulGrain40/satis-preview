@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0a1410">
+<title>Satis — wordmark in Literata</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600;7..72,700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --page:#0a1410; --surface:#0e1c14; --card:#111f17; --border:#1c2e22;
+    --sage:#88aa99; --t-primary:#c8ddd2; --t-secondary:#7a9e8a; --t-dim:#4a6655;
+  }
+  body { background:var(--page); color:var(--t-primary);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; padding:40px 16px 80px; }
+  .wrap { max-width:720px; margin:0 auto; }
+  h1 { font-size:12px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--t-dim); text-align:center; margin-bottom:8px; }
+  p.intro { font-size:14px; color:var(--t-secondary); text-align:center; line-height:1.6; margin-bottom:32px; }
+  .label { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--t-dim); margin:8px 0 0; text-align:center; }
+  .stage { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:56px 24px 24px; margin-bottom:14px; display:flex; flex-direction:column; align-items:center; }
+  .note { font-size:13px; color:var(--t-dim); line-height:1.7; max-width:640px; margin:24px auto 0; }
+  .note strong { color:var(--t-secondary); }
+
+  /* wordmark base */
+  .wm { color:var(--sage); text-transform:uppercase; line-height:1.2; -webkit-font-smoothing:antialiased; }
+  .lit { font-family:'Literata',serif; }
+  .lead { display:inline-block; line-height:1; letter-spacing:0; position:relative; }
+  .lead .rule { position:absolute; left:50%; transform:translateX(-50%); bottom:-10px; width:60%; height:2px; background:var(--sage); border-radius:1px; }
+
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media (max-width:600px){ .row{ grid-template-columns:1fr; } }
+
+  /* icon */
+  .icon { width:96px; height:96px; border-radius:20px; background:var(--sage); display:flex; align-items:center; justify-content:center; }
+  .icon .s { position:relative; display:inline-block; color:var(--page); line-height:1; padding-bottom:17px; }
+  .icon .s .r { position:absolute; left:50%; bottom:8px; transform:translateX(-50%); width:60%; height:1.5px; background:var(--page); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Satis wordmark — Literata study</h1>
+  <p class="intro">What the wordmark looks like in Literata (the new brand serif) vs the locked Playfair + Cormorant lockup. The question: one serif for everything, or keep the two-font wordmark?</p>
+
+  <!-- Reference -->
+  <div class="stage">
+    <span class="wm" style="font-size:46px;letter-spacing:18px;">
+      <span style="font-family:'Playfair Display',serif;font-weight:700;" class="lead">S<span class="rule"></span></span><span style="font-family:'Cormorant Garamond',serif;font-weight:600;">ATI</span><span style="font-family:'Playfair Display',serif;font-weight:700;">S</span>
+    </span>
+  </div>
+  <p class="label">Reference — current lockup · Playfair S + Cormorant ATI</p>
+
+  <div style="height:32px"></div>
+
+  <!-- Literata 600 -->
+  <div class="stage">
+    <span class="wm lit" style="font-size:46px;letter-spacing:18px;font-weight:600;">
+      <span class="lead">S<span class="rule"></span></span><span style="margin-left:18px;">ATIS</span>
+    </span>
+  </div>
+  <p class="label">Literata 600 · same 60% underline under the leading S</p>
+
+  <div style="height:32px"></div>
+
+  <!-- Weights -->
+  <div class="label" style="margin-bottom:14px;">Literata weights</div>
+  <div class="row">
+    <div class="stage" style="padding:40px 16px 20px;">
+      <span class="wm lit" style="font-size:34px;letter-spacing:13px;font-weight:400;"><span class="lead">S<span class="rule" style="bottom:-7px;height:1.5px;"></span></span><span style="margin-left:13px;">ATIS</span></span>
+      <p class="label" style="margin-top:24px;">400 · Regular</p>
+    </div>
+    <div class="stage" style="padding:40px 16px 20px;">
+      <span class="wm lit" style="font-size:34px;letter-spacing:13px;font-weight:500;"><span class="lead">S<span class="rule" style="bottom:-7px;height:1.5px;"></span></span><span style="margin-left:13px;">ATIS</span></span>
+      <p class="label" style="margin-top:24px;">500 · Medium</p>
+    </div>
+    <div class="stage" style="padding:40px 16px 20px;">
+      <span class="wm lit" style="font-size:34px;letter-spacing:13px;font-weight:600;"><span class="lead">S<span class="rule" style="bottom:-7px;height:1.5px;"></span></span><span style="margin-left:13px;">ATIS</span></span>
+      <p class="label" style="margin-top:24px;">600 · SemiBold</p>
+    </div>
+    <div class="stage" style="padding:40px 16px 20px;">
+      <span class="wm lit" style="font-size:34px;letter-spacing:13px;font-weight:700;"><span class="lead">S<span class="rule" style="bottom:-7px;height:1.5px;"></span></span><span style="margin-left:13px;">ATIS</span></span>
+      <p class="label" style="margin-top:24px;">700 · Bold</p>
+    </div>
+  </div>
+
+  <div style="height:32px"></div>
+
+  <!-- Tracking -->
+  <div class="label" style="margin-bottom:14px;">Tracking (Literata 600)</div>
+  <div class="stage" style="gap:28px;padding:40px 16px;">
+    <span class="wm lit" style="font-size:32px;letter-spacing:8px;font-weight:600;"><span class="lead">S<span class="rule" style="bottom:-7px;height:1.5px;"></span></span><span style="margin-left:8px;">ATIS</span></span>
+    <span class="wm lit" style="font-size:32px;letter-spacing:16px;font-weight:600;"><span class="lead">S<span class="rule" style="bottom:-7px;height:1.5px;"></span></span><span style="margin-left:16px;">ATIS</span></span>
+    <span class="wm lit" style="font-size:32px;letter-spacing:26px;font-weight:600;"><span class="lead">S<span class="rule" style="bottom:-7px;height:1.5px;"></span></span><span style="margin-left:26px;">ATIS</span></span>
+  </div>
+  <p class="label">8px · 16px · 26px</p>
+
+  <div style="height:32px"></div>
+
+  <!-- Title case — featured -->
+  <div class="label" style="margin-bottom:14px;color:var(--sage);">★ Title case · "Satis." · centred underline under the S · full stop</div>
+  <div class="stage" style="padding:72px 24px 56px;">
+    <span class="lit" style="font-size:52px;font-weight:500;color:var(--sage);letter-spacing:8px;">
+      <span style="position:relative;display:inline-block;letter-spacing:0;margin-right:8px;">S<span style="position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-6px;">.</span>
+    </span>
+  </div>
+  <p class="label">Literata 500 · 8px tracking · underline centred under S · period</p>
+
+  <div style="height:24px"></div>
+
+  <!-- Tracking options for title case -->
+  <div class="label" style="margin-bottom:14px;">Tracking — how much space between letters</div>
+  <div class="row">
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:38px;font-weight:500;color:var(--sage);letter-spacing:4px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:4px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-2px;">.</span></span>
+      <p class="label" style="margin-top:22px;">4px · snug</p>
+    </div>
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:38px;font-weight:500;color:var(--sage);letter-spacing:8px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:8px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-6px;">.</span></span>
+      <p class="label" style="margin-top:22px;">8px · balanced</p>
+    </div>
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:38px;font-weight:500;color:var(--sage);letter-spacing:13px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:13px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-10px;">.</span></span>
+      <p class="label" style="margin-top:22px;">13px · airy</p>
+    </div>
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:38px;font-weight:500;color:var(--sage);letter-spacing:18px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:18px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-14px;">.</span></span>
+      <p class="label" style="margin-top:22px;">18px · wide</p>
+    </div>
+  </div>
+
+  <div style="height:24px"></div>
+
+  <!-- Weight + period detail -->
+  <div class="label" style="margin-bottom:14px;">Weight, and with / without the full stop (8px tracking)</div>
+  <div class="row">
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:40px;font-weight:400;color:var(--sage);letter-spacing:8px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:8px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:1.75px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-6px;">.</span></span>
+      <p class="label" style="margin-top:22px;">400 · with stop</p>
+    </div>
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:40px;font-weight:500;color:var(--sage);letter-spacing:8px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:8px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-6px;">.</span></span>
+      <p class="label" style="margin-top:22px;">500 · with stop</p>
+    </div>
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:40px;font-weight:500;color:var(--sage);letter-spacing:8px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:8px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px;"></span></span>atis</span>
+      <p class="label" style="margin-top:22px;">500 · no stop</p>
+    </div>
+    <div class="stage" style="padding:44px 16px 30px;">
+      <span class="lit" style="font-size:40px;font-weight:600;color:var(--sage);letter-spacing:8px;"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:8px;">S<span style="position:absolute;left:50%;bottom:-4px;transform:translateX(-50%);width:64%;height:2.25px;background:var(--sage);border-radius:1px;"></span></span>atis<span style="margin-left:-6px;">.</span></span>
+      <p class="label" style="margin-top:22px;">600 · with stop</p>
+    </div>
+  </div>
+
+  <p class="note">
+    <strong>The full stop is doing real work here</strong> — "Satis." reads as "enough. full stop," which is the entire brand thesis in one mark. It also gives the wordmark a definite end, balancing the underline at the start. My pick: <strong>Literata 500, 8px tracking, with the stop</strong> — refined without being precious. The period's spacing is pulled in slightly (negative margin) so it reads as punctuation, not a sixth letter. Watch on a real screen whether the centred underline feels right under the S bowl, or wants to nudge a hair narrower.
+  </p>
+
+  <div style="height:32px"></div>
+
+  <!-- Icon comparison -->
+  <div class="label" style="margin-bottom:14px;">App icon — Literata S vs Playfair S (inverted primary)</div>
+  <div class="stage" style="flex-direction:row;justify-content:center;gap:40px;">
+    <div style="text-align:center;">
+      <div class="icon"><span class="lit s" style="font-size:60px;font-weight:600;">S<span class="r"></span></span></div>
+      <p class="label" style="margin-top:14px;">Literata</p>
+    </div>
+    <div style="text-align:center;">
+      <div class="icon"><span class="s" style="font-family:'Playfair Display',serif;font-weight:700;font-size:60px;">S<span class="r"></span></span></div>
+      <p class="label" style="margin-top:14px;">Playfair (current)</p>
+    </div>
+  </div>
+
+  <p class="note">
+    <strong>My read:</strong> Literata gives a <strong>single-serif identity</strong> — the wordmark, headings, voice, and nav all speak in one face. That's more cohesive and more "understated literary," and it ties the logo directly to the reading experience. The trade-off: Literata is a <em>text</em> face, so as a wordmark it's quieter and less couture than the Playfair+Cormorant lockup — that combo has dramatic thick/thin contrast and a fashion-house confidence that Literata deliberately doesn't.
+    <br><br>
+    Net: <strong>Playfair+Cormorant</strong> = more distinctive logo, two extra fonts to load, logo-only. <strong>Literata</strong> = quieter but more unified, one fewer font family overall, and the wordmark literally shares DNA with every heading. For a brand whose whole ethos is "enough / calm / unfussy," the Literata route is more honest to the philosophy — but the current lockup has more standout shelf-presence. Worth deciding which matters more here.
+  </p>
+</div>
+</body>
+</html>
