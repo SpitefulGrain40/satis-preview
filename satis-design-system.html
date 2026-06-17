@@ -12,6 +12,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --sage:          #88aa99;
+    --success:       #2fce85;
+    --on-success:    #06281a;
     --page:          #0a1410;
     --surface:       #0e1c14;
     --card:          #111f17;
@@ -139,6 +141,7 @@
   /* ---- Badges ---- */
   .badge { display: inline-flex; align-items: center; font-size: 10px; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 6px; font-weight: 600; }
   .b-sage { color: var(--sage); background: rgba(136,170,153,0.12); border: 1px solid rgba(136,170,153,0.25); }
+  .b-success { color: var(--success); background: rgba(47,206,133,0.14); border: 1px solid rgba(47,206,133,0.3); }
   .b-moss { color: var(--moss); background: rgba(168,181,114,0.12); border: 1px solid rgba(168,181,114,0.25); }
   .b-honey { color: var(--honey); background: rgba(196,168,120,0.12); border: 1px solid rgba(196,168,120,0.25); }
   .b-clay { color: var(--clay-deep); background: rgba(184,122,109,0.12); border: 1px solid rgba(184,122,109,0.25); }
@@ -255,9 +258,9 @@
           <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Plain data in cream</div>
         </div>
         <div class="card" style="background:var(--surface);margin-top:10px">
-          <div class="eyebrow" style="color:var(--sage)">Goal hit ✓</div>
-          <div class="big-num" style="color:var(--sage)">100<span class="unit">% protein</span></div>
-          <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Sage only when it <em>means</em> "positive"</div>
+          <div class="eyebrow" style="color:var(--success)">Goal hit ✓</div>
+          <div class="big-num" style="color:var(--success)">100<span class="unit">% protein</span></div>
+          <div style="font-size:11px;color:var(--t-secondary);margin-top:6px">Success green only at the <em>moment of a win</em></div>
         </div>
       </div>
       <div class="dd dont">
@@ -365,10 +368,10 @@
         <div style="height:4px;border-radius:2px;background:var(--border);overflow:hidden"><div style="width:98%;height:100%;background:var(--sage)"></div></div>
       </div>
       <div class="card">
-        <div class="eyebrow" style="color:var(--moss)">PR ★</div>
+        <div class="eyebrow" style="color:var(--success)">PR ★</div>
         <div style="font-family:var(--serif);font-size:16px;font-weight:600;margin-bottom:4px">Bench Press</div>
         <div style="font-size:13px;color:var(--t-secondary)"><span class="num">85</span>kg × <span class="num">5</span> reps</div>
-        <span class="badge b-moss" style="margin-top:12px">NEW PR</span>
+        <span class="badge b-success" style="margin-top:12px">NEW PR</span>
       </div>
       <div class="card" style="background:var(--forest-panel);border-color:var(--forest-hero);display:flex;flex-direction:column;justify-content:space-between">
         <div>
@@ -451,8 +454,8 @@
     <h2>Badges &amp; chips</h2>
     <p class="sec-intro">Pill, radius 6. Pattern: coloured text on a 12% fill with a 25% border. Each tied to its semantic role.</p>
     <div class="btn-row">
+      <span class="badge b-success">NEW PR</span>
       <span class="badge b-sage">ON TRACK</span>
-      <span class="badge b-moss">NEW PR</span>
       <span class="badge b-honey">DUE</span>
       <span class="badge b-clay">OVER</span>
       <span class="badge b-slate">RESTING</span>
