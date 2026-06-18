@@ -1,0 +1,54 @@
+<!-- @dsCard group="Charts" name="Weekly bars" subtitle="state colouring" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+@font-face{font-family:'LitNum';src:url('https://cdn.jsdelivr.net/npm/@fontsource/literata/files/literata-latin-400-normal.woff2') format('woff2');unicode-range:U+0030-0039,U+002C,U+002E,U+0025,U+003A;font-weight:400;font-display:swap}
+@font-face{font-family:'LitNum';src:url('https://cdn.jsdelivr.net/npm/@fontsource/literata/files/literata-latin-600-normal.woff2') format('woff2');unicode-range:U+0030-0039,U+002C,U+002E,U+0025,U+003A;font-weight:600;font-display:swap}
+:root{--sage:#88aa99;--success:#2fce85;--on-success:#06281a;--honey:#c4a878;--clay:#c4a087;--clay-deep:#b87a6d;--slate:#7a93a6;--moss:#a8b572;
+--page:#0a1410;--surface:#0e1c14;--card:#111f17;--border:#1c2e22;--modal:#243a2c;--forest-accent:#163020;--forest-panel:#1d4029;--forest-hero:#244e34;--forest-bright:#2c5b3d;
+--t-primary:#c8ddd2;--t-secondary:#7a9e8a;--t-dim:#4a6655;
+--sys:'LitNum',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;--serif:'Literata',Georgia,serif}
+body{background:var(--page);color:var(--t-primary);font-family:var(--sys);-webkit-font-smoothing:antialiased;line-height:1.5;padding:24px}
+h3{font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:14px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;max-width:760px}
+.sw{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.sw .chip{height:72px}
+.sw .meta{padding:10px 12px;background:var(--card)}
+.sw .name{font-size:12px;font-weight:600;color:var(--t-primary)}
+.sw .hex{font-size:11px;color:var(--t-secondary);font-family:ui-monospace,monospace;margin-top:2px}
+.sw .role{font-size:10px;color:var(--t-dim);margin-top:4px;line-height:1.4}
+.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t-secondary);margin-bottom:8px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.big-num{font-size:28px;font-weight:600;line-height:1}.big-num .unit{font-size:14px;font-weight:400;color:var(--t-secondary)}
+.cg-num,.num{font-family:var(--serif)}
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;max-width:760px}
+.btn{font-family:var(--sys);font-size:14px;font-weight:600;min-height:44px;padding:0 18px;border-radius:12px;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s}
+.btn-primary{background:var(--sage);color:var(--page)}.btn-secondary{background:transparent;border-color:var(--border);color:var(--t-primary)}
+.btn-ghost{background:transparent;color:var(--t-secondary)}.btn-destructive{background:transparent;border-color:var(--clay-deep);color:var(--clay-deep)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.badge{display:inline-flex;align-items:center;font-size:10px;letter-spacing:.5px;padding:3px 8px;border-radius:6px;font-weight:600}
+.b-success{color:var(--success);background:rgba(47,206,133,.14);border:1px solid rgba(47,206,133,.3)}
+.b-sage{color:var(--sage);background:rgba(136,170,153,.12);border:1px solid rgba(136,170,153,.25)}
+.b-honey{color:var(--honey);background:rgba(196,168,120,.12);border:1px solid rgba(196,168,120,.25)}
+.b-clay{color:var(--clay-deep);background:rgba(184,122,109,.12);border:1px solid rgba(184,122,109,.25)}
+.b-slate{color:var(--slate);background:rgba(122,147,166,.12);border:1px solid rgba(122,147,166,.25)}
+.field{max-width:320px}.field label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t-secondary);margin-bottom:6px}
+.field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--t-primary);font-family:var(--sys);font-size:15px;outline:none}
+.field input:focus{border-color:var(--sage)}.field.err input{border-color:var(--clay-deep)}.field .errmsg{font-size:13px;color:var(--clay-deep);margin-top:6px}
+.nav{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px 8px 10px;display:flex;justify-content:space-around;max-width:420px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 0;cursor:pointer}
+.tab svg{width:23px;height:23px;display:block}.tab .ic{color:var(--t-secondary);display:flex}
+.tab .name{font-family:var(--serif);font-size:11px;color:var(--t-secondary)}
+.tab .rule{height:1.5px;width:0;background:var(--t-primary);border-radius:1px;transition:width .15s;margin-top:3px}
+.tab.active .ic{color:var(--t-primary)}.tab.active .name{color:var(--t-primary);font-weight:600}.tab.active .rule{width:44%}
+.chartcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;max-width:760px}
+.note{font-size:12px;color:var(--t-dim);line-height:1.6;margin-top:12px;max-width:640px}
+.wm{font-family:var(--serif);font-weight:600;color:var(--sage)}
+</style></head><body>
+<h3>Weekly bars — state colouring</h3><div class="chartcard"><div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:16px"><div><div class="eyebrow">Protein · this week</div><div class="big-num cg-num" style="color:var(--t-primary)">178<span class="unit">g avg</span></div></div><div style="text-align:right"><div style="font-size:10px;color:var(--t-secondary)">Target</div><div class="cg-num" style="font-size:14px;color:var(--t-primary)">160g</div></div></div><svg viewBox="0 0 600 200" width="100%" style="display:block"><line x1="0" y1="64" x2="600" y2="64" stroke="#c8ddd2" stroke-width="1" stroke-dasharray="4,4" opacity="0.4"/><text x="592" y="58" text-anchor="end" fill="#7a9e8a" font-size="10">160g target</text><rect x="20" y="48" width="58" height="120" fill="#2c5b3d" rx="3"/><rect x="100" y="72" width="58" height="96" fill="#2c5b3d" rx="3"/><rect x="180" y="40" width="58" height="128" fill="#2c5b3d" rx="3"/><rect x="260" y="88" width="58" height="80" fill="#c4a878" rx="3"/><rect x="340" y="32" width="58" height="136" fill="#2fce85" rx="3"/><text x="369" y="24" text-anchor="middle" fill="#2fce85" font-size="13">\&#9733;</text><rect x="420" y="56" width="58" height="112" fill="#2c5b3d" rx="3"/><rect x="500" y="100" width="58" height="68" fill="#c4a878" rx="3"/><g font-size="10" fill="#7a9e8a" text-anchor="middle"><text x="49" y="186">M</text><text x="129" y="186">T</text><text x="209" y="186">W</text><text x="289" y="186">T</text><text x="369" y="186">F</text><text x="449" y="186">S</text><text x="529" y="186">S</text></g></svg></div><p class="note">Forest-green baseline; honey/sage flag below-target days; vibrant success on the standout (\&#9733;) only.</p>
+</body></html>

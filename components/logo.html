@@ -1,0 +1,54 @@
+<!-- @dsCard group="Brand" name="Logo · Satis. + S-mark" subtitle="wordmark + app icon" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+@font-face{font-family:'LitNum';src:url('https://cdn.jsdelivr.net/npm/@fontsource/literata/files/literata-latin-400-normal.woff2') format('woff2');unicode-range:U+0030-0039,U+002C,U+002E,U+0025,U+003A;font-weight:400;font-display:swap}
+@font-face{font-family:'LitNum';src:url('https://cdn.jsdelivr.net/npm/@fontsource/literata/files/literata-latin-600-normal.woff2') format('woff2');unicode-range:U+0030-0039,U+002C,U+002E,U+0025,U+003A;font-weight:600;font-display:swap}
+:root{--sage:#88aa99;--success:#2fce85;--on-success:#06281a;--honey:#c4a878;--clay:#c4a087;--clay-deep:#b87a6d;--slate:#7a93a6;--moss:#a8b572;
+--page:#0a1410;--surface:#0e1c14;--card:#111f17;--border:#1c2e22;--modal:#243a2c;--forest-accent:#163020;--forest-panel:#1d4029;--forest-hero:#244e34;--forest-bright:#2c5b3d;
+--t-primary:#c8ddd2;--t-secondary:#7a9e8a;--t-dim:#4a6655;
+--sys:'LitNum',-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;--serif:'Literata',Georgia,serif}
+body{background:var(--page);color:var(--t-primary);font-family:var(--sys);-webkit-font-smoothing:antialiased;line-height:1.5;padding:24px}
+h3{font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:14px}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;max-width:760px}
+.sw{border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.sw .chip{height:72px}
+.sw .meta{padding:10px 12px;background:var(--card)}
+.sw .name{font-size:12px;font-weight:600;color:var(--t-primary)}
+.sw .hex{font-size:11px;color:var(--t-secondary);font-family:ui-monospace,monospace;margin-top:2px}
+.sw .role{font-size:10px;color:var(--t-dim);margin-top:4px;line-height:1.4}
+.eyebrow{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--t-secondary);margin-bottom:8px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.big-num{font-size:28px;font-weight:600;line-height:1}.big-num .unit{font-size:14px;font-weight:400;color:var(--t-secondary)}
+.cg-num,.num{font-family:var(--serif)}
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;max-width:760px}
+.btn{font-family:var(--sys);font-size:14px;font-weight:600;min-height:44px;padding:0 18px;border-radius:12px;cursor:pointer;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.15s}
+.btn-primary{background:var(--sage);color:var(--page)}.btn-secondary{background:transparent;border-color:var(--border);color:var(--t-primary)}
+.btn-ghost{background:transparent;color:var(--t-secondary)}.btn-destructive{background:transparent;border-color:var(--clay-deep);color:var(--clay-deep)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.badge{display:inline-flex;align-items:center;font-size:10px;letter-spacing:.5px;padding:3px 8px;border-radius:6px;font-weight:600}
+.b-success{color:var(--success);background:rgba(47,206,133,.14);border:1px solid rgba(47,206,133,.3)}
+.b-sage{color:var(--sage);background:rgba(136,170,153,.12);border:1px solid rgba(136,170,153,.25)}
+.b-honey{color:var(--honey);background:rgba(196,168,120,.12);border:1px solid rgba(196,168,120,.25)}
+.b-clay{color:var(--clay-deep);background:rgba(184,122,109,.12);border:1px solid rgba(184,122,109,.25)}
+.b-slate{color:var(--slate);background:rgba(122,147,166,.12);border:1px solid rgba(122,147,166,.25)}
+.field{max-width:320px}.field label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--t-secondary);margin-bottom:6px}
+.field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;color:var(--t-primary);font-family:var(--sys);font-size:15px;outline:none}
+.field input:focus{border-color:var(--sage)}.field.err input{border-color:var(--clay-deep)}.field .errmsg{font-size:13px;color:var(--clay-deep);margin-top:6px}
+.nav{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:12px 8px 10px;display:flex;justify-content:space-around;max-width:420px}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 0;cursor:pointer}
+.tab svg{width:23px;height:23px;display:block}.tab .ic{color:var(--t-secondary);display:flex}
+.tab .name{font-family:var(--serif);font-size:11px;color:var(--t-secondary)}
+.tab .rule{height:1.5px;width:0;background:var(--t-primary);border-radius:1px;transition:width .15s;margin-top:3px}
+.tab.active .ic{color:var(--t-primary)}.tab.active .name{color:var(--t-primary);font-weight:600}.tab.active .rule{width:44%}
+.chartcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;max-width:760px}
+.note{font-size:12px;color:var(--t-dim);line-height:1.6;margin-top:12px;max-width:640px}
+.wm{font-family:var(--serif);font-weight:600;color:var(--sage)}
+</style></head><body>
+<h3>Logo</h3><div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:48px 24px;display:flex;justify-content:center;margin-bottom:14px"><span class="wm" style="font-size:52px;letter-spacing:8px"><span style="position:relative;display:inline-block;letter-spacing:0;margin-right:8px">S<span style="position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:64%;height:2px;background:var(--sage);border-radius:1px"></span></span>atis<span style="margin-left:-6px">.</span></span></div><div class="row" style="gap:18px"><div style="width:96px;height:96px;border-radius:21px;background:var(--sage);display:flex;align-items:center;justify-content:center"><span style="position:relative;display:inline-block;font-family:var(--serif);font-weight:600;font-size:60px;color:#0e1c14;line-height:1;padding-bottom:17px">S<span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:#0e1c14"></span></span></div><div style="width:96px;height:96px;border-radius:21px;background:var(--surface);display:flex;align-items:center;justify-content:center"><span style="position:relative;display:inline-block;font-family:var(--serif);font-weight:600;font-size:60px;color:var(--sage);line-height:1;padding-bottom:17px">S<span style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);width:60%;height:1.5px;background:var(--sage)"></span></span></div></div><p class="note">Wordmark "Satis." + app-icon S, Literata 600. Primary icon is inverted (sage container). Editable SVGs in <code>/logo/</code>.</p>
+</body></html>
