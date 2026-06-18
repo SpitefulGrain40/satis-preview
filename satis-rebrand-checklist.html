@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0a1410">
+<title>Satis — rebrand checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400;7..72,500;7..72,600&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sage:#88aa99; --success:#2fce85; --honey:#c4a878; --clay:#c4a087; --clay-deep:#b87a6d;
+    --slate:#7a93a6; --moss:#a8b572; --forest-bright:#2c5b3d;
+    --page:#0a1410; --surface:#0e1c14; --card:#111f17; --border:#1c2e22; --modal:#243a2c;
+    --t-primary:#c8ddd2; --t-secondary:#7a9e8a; --t-dim:#4a6655;
+    --sys:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    --serif:'Literata',Georgia,serif;
+  }
+  body { background:var(--page); color:var(--t-primary); font-family:var(--sys); -webkit-font-smoothing:antialiased; line-height:1.5; padding-bottom:80px; }
+
+  /* header */
+  .head { position:sticky; top:0; z-index:50; background:rgba(10,20,16,0.94); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:14px 20px; }
+  .head .top { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; max-width:900px; margin:0 auto; }
+  .wm { font-family:var(--serif); font-weight:600; font-size:22px; letter-spacing:4px; color:var(--sage); }
+  .wm .lead { position:relative; display:inline-block; letter-spacing:0; margin-right:4px; }
+  .wm .lead .r { position:absolute; left:50%; bottom:-3px; transform:translateX(-50%); width:64%; height:1.5px; background:var(--sage); border-radius:1px; }
+  .wm .stop { margin-left:-3px; }
+  .wm .sub { font-family:var(--sys); font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--t-dim); margin-left:10px; }
+  .progwrap { max-width:900px; margin:12px auto 0; }
+  .progmeta { display:flex; justify-content:space-between; font-size:11px; color:var(--t-secondary); margin-bottom:6px; }
+  .progbar { height:7px; border-radius:4px; background:var(--border); overflow:hidden; }
+  .progfill { height:100%; width:0; background:var(--sage); transition:width .2s, background .2s; }
+
+  .wrap { max-width:900px; margin:0 auto; padding:0 20px; }
+  .intro { font-size:14px; color:var(--t-secondary); line-height:1.65; margin:28px 0 8px; }
+  .legend { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0 8px; }
+  .tag { font-size:10px; letter-spacing:0.5px; padding:3px 8px; border-radius:6px; font-weight:600; white-space:nowrap; }
+  .t-string  { color:var(--slate); background:rgba(122,147,166,.13); border:1px solid rgba(122,147,166,.3); }
+  .t-asset   { color:var(--clay); background:rgba(196,160,135,.13); border:1px solid rgba(196,160,135,.3); }
+  .t-theme   { color:var(--honey); background:rgba(196,168,120,.13); border:1px solid rgba(196,168,120,.3); }
+  .t-type    { color:var(--moss); background:rgba(168,181,114,.13); border:1px solid rgba(168,181,114,.3); }
+  .t-keep    { color:var(--sage); background:rgba(136,170,153,.13); border:1px solid rgba(136,170,153,.3); }
+  .t-build   { color:var(--forest-bright); background:rgba(44,91,61,.22); border:1px solid rgba(44,91,61,.5); }
+  .t-phase   { color:var(--t-dim); background:rgba(74,102,85,.15); border:1px solid rgba(74,102,85,.4); }
+
+  h2 { font-family:var(--serif); font-size:18px; font-weight:600; color:var(--t-primary); margin:40px 0 4px; }
+  .sec-note { font-size:12px; color:var(--t-dim); margin-bottom:14px; }
+
+  .item { display:flex; gap:12px; padding:14px 16px; background:var(--card); border:1px solid var(--border); border-radius:12px; margin-bottom:10px; cursor:pointer; transition:border-color .15s, opacity .15s; }
+  .item:hover { border-color:#22c55e44; }
+  .item.done { opacity:0.55; }
+  .item.done .it-title { text-decoration:line-through; }
+  .box { width:22px; height:22px; border-radius:6px; border:1.5px solid var(--t-secondary); flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:.15s; }
+  .item.done .box { background:var(--success); border-color:var(--success); }
+  .box svg { width:13px; height:13px; opacity:0; }
+  .item.done .box svg { opacity:1; }
+  .it-body { flex:1; min-width:0; }
+  .it-title { font-size:15px; font-weight:600; color:var(--t-primary); margin-bottom:3px; }
+  .it-tags { display:inline-flex; gap:6px; margin-left:8px; vertical-align:middle; }
+  .it-detail { font-size:13px; color:var(--t-secondary); line-height:1.55; }
+  .it-files { margin-top:6px; display:flex; flex-wrap:wrap; gap:6px; }
+  .file { font-family:ui-monospace,Menlo,monospace; font-size:11px; color:var(--sage); background:var(--surface); border:1px solid var(--border); border-radius:5px; padding:2px 7px; }
+  .callout { background:rgba(196,168,120,.08); border:1px solid rgba(196,168,120,.3); border-radius:10px; padding:12px 14px; font-size:13px; color:var(--t-secondary); line-height:1.6; margin:14px 0; }
+  .callout strong { color:var(--honey); }
+  .footer { font-size:12px; color:var(--t-dim); line-height:1.7; margin-top:36px; padding-top:20px; border-top:1px solid var(--border); }
+  .reset { font-size:11px; color:var(--t-dim); background:none; border:1px solid var(--border); border-radius:6px; padding:4px 10px; cursor:pointer; font-family:inherit; }
+  .reset:hover { color:var(--t-secondary); border-color:var(--t-secondary); }
+</style>
+</head>
+<body>
+<div class="head">
+  <div class="top">
+    <span class="wm"><span class="lead">S<span class="r"></span></span>atis<span class="stop">.</span><span class="sub">Rebrand checklist</span></span>
+    <button class="reset" onclick="resetAll()">Reset ticks</button>
+  </div>
+  <div class="progwrap">
+    <div class="progmeta"><span id="progtext">0 of 0 done</span><span id="progpct">0%</span></div>
+    <div class="progbar"><div class="progfill" id="progfill"></div></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <p class="intro">Every change to take the live app from <strong>Pump</strong> to <strong>Satis</strong>, grouped by area. Tick items as you go (saved in this browser). <strong>Nothing here is executed</strong> — it's the plan; we change code only when you say so. Grounded in the actual <code>C:\Users\mikes\Pump</code> codebase.</p>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="callout">
+    <strong>Two hard rules before any code changes:</strong><br>
+    1. <strong>localStorage keys stay <code>pump-*</code></strong> — renaming them would wipe every existing user's data. Change UI copy, never the keys.<br>
+    2. <strong>Repo &amp; URL stay "Pump"</strong> (decided) — <code>github.com/SpitefulGrain40/Pump</code> and the Pages URL don't change. The app is <em>named</em> Satis; its address stays Pump for now.
+  </div>
+
+  <div id="sections"></div>
+
+  <p class="footer" id="footer"></p>
+</div>
+
+<script>
+const TAGS = {
+  string:['STRING','Text / copy change','t-string'],
+  asset:['ASSET','Image / icon to regenerate','t-asset'],
+  theme:['THEME','Colour / visual','t-theme'],
+  type:['TYPE','Font / typography','t-type'],
+  keep:['KEEP','Leave as-is (important)','t-keep'],
+  build:['BUILD','Build / deploy step','t-build'],
+  phase:['PHASE 2','Larger, can follow later','t-phase'],
+};
+
+const DATA = [
+  ['Identity & metadata', 'The name, title, and PWA metadata users and the OS see.', [
+    ['meta-manifest-name', 'App name → "Satis"', ['string'], 'Set <code>name</code> ("Pump - AI Fitness Coach") and <code>short_name</code> ("Pump") to the Satis name/tagline.', ['manifest.json','public/manifest.json']],
+    ['meta-manifest-desc', 'Manifest description', ['string'], 'Rewrite to the Satis positioning (calm, sustainable progress — not "weight loss / fitness coach").', ['manifest.json','public/manifest.json']],
+    ['meta-manifest-theme', 'Manifest theme + background colour', ['theme'], 'Currently OLED black <code>#000000</code>. Move to the Satis forest — <code>background_color</code> <code>#0a1410</code>, <code>theme_color</code> <code>#0e1c14</code> (or sage if you want a coloured splash).', ['manifest.json','public/manifest.json']],
+    ['meta-title', 'Page &lt;title&gt;', ['string'], '"Pump - AI Fitness Coach" → Satis title.', ['index.html','index.src.html']],
+    ['meta-html-theme', 'HTML theme/background meta', ['theme'], '<code>&lt;meta name="theme-color"&gt;</code> and <code>background-color</code> are <code>#000000</code> → forest.', ['index.html','index.src.html']],
+    ['meta-html-names', 'App-title / application-name meta', ['string'], '<code>apple-mobile-web-app-title</code> and <code>application-name</code> = "Pump" → "Satis".', ['index.html','index.src.html']],
+    ['meta-html-desc', 'HTML meta description', ['string'], 'Same Satis description as the manifest.', ['index.html','index.src.html']],
+    ['meta-pkg', 'package.json name', ['string'], '<code>"name": "pump"</code> → <code>"satis"</code>. Cosmetic (private package) but tidy.', ['package.json']],
+    ['meta-readme', 'README + user guide branding', ['string'], 'Title and "Pump" references in docs.', ['README.md','USER_GUIDE.md']],
+  ]],
+  ['Icons & favicons', 'Regenerated from the new Satis mark (primary = inverted: sage container, forest S).', [
+    ['icon-svg', 'Replace icon.svg', ['asset'], 'Swap the bold-"P" icon for the Satis S-mark. Source: <code>logo/satis-icon-primary-outlined.svg</code>.', ['icon.svg','public/icon.svg']],
+    ['icon-png', 'Regenerate icon-192 / icon-512 (any + maskable)', ['asset'], 'Export PNGs from the Satis mark. Maskable copies need safe-zone padding (mark within the inner ~80%). Use the web-asset-generator skill or Sharp.', ['icon-192.png','icon-512.png']],
+    ['icon-apple', 'apple-touch-icon', ['asset'], 'Currently points at icon-192.png — regenerates with the above.', ['index.html']],
+    ['icon-decide', 'Confirm icon orientation', ['keep'], 'Primary is the inverted lockup (sage bg / forest S). Alternate is dark bg / sage S — useful for an adaptive/dark variant.', []],
+  ]],
+  ['Typography', 'Bring in Literata; system sans stays for UI.', [
+    ['type-host', 'Self-host Literata (woff2)', ['type'], 'Add Literata 400/500/600 as self-hosted woff2 + <code>@font-face</code>, <code>font-display:swap</code>. Offline-first PWA — no Google Fonts CDN dependency.', ['src/index.css','public/fonts/']],
+    ['type-num', 'Numerals unicode-range', ['type'], 'Digit-only <code>@font-face</code> ("LitNum") layered ahead of the system stack so every number renders in Literata automatically.', ['src/index.css']],
+    ['type-apply', 'Apply Literata to Coach/Doc/headings/nav', ['type','phase'], 'Per the design system: serif for conversation, headings, nav labels; system sans elsewhere. A component-level pass.', ['src/components/']],
+  ]],
+  ['Colour & theme (in-app)', 'Moving the UI from OLED black to the Satis forest palette. Larger than the rename — can phase.', [
+    ['theme-vars', 'Add Satis palette tokens', ['theme'], 'Introduce the design-system CSS variables (forest surfaces, sage, success, accents) into the theme.', ['src/index.css']],
+    ['theme-migrate', 'Migrate UI surfaces to forest palette', ['theme','phase'], 'Recolour backgrounds/cards/text from OLED black to the forest ladder. Significant — track as its own phase against the design system.', ['src/components/','src/index.css']],
+    ['theme-states', 'Success/progress colour rules', ['theme','phase'], 'Apply the graduated progress fills (sage→honey→success, red over a kcal cap) and reserved success-green treatment.', ['src/components/Progress.jsx','src/components/Dashboard.jsx']],
+  ]],
+  ['In-app strings', 'User-facing "Pump" copy → "Satis". Keep code identifiers and storage keys.', [
+    ['str-ui', 'UI copy "Pump" → "Satis"', ['string'], 'Replace visible "Pump" text in components (welcome/onboarding, settings, about, etc.).', ['src/components/OnboardingWizard.jsx','src/components/Settings.jsx','src/components/Coach.jsx','src/components/Doc.jsx']],
+    ['str-ai', 'AI prompt app-name references', ['string'], 'The Coach/Doc system prompts refer to the app — update "Pump" → "Satis" so the AI uses the new name.', ['src/services/ai/context.js']],
+    ['str-keys', 'Do NOT rename localStorage keys', ['keep'], 'All <code>pump-*</code> keys (pump-user-profile, pump-nutrition-logs, …) stay exactly as-is. Renaming = data loss for every user.', ['src/hooks/','src/services/ai/']],
+    ['str-ids', 'Code identifiers / file names', ['keep','phase'], 'Internal variable names, cache prefixes, dev script names can stay "pump" — cosmetic only, optional later cleanup.', []],
+  ]],
+  ['Service worker & deploy', 'Cache busting and the deploy scripts.', [
+    ['sw-cache', 'Service-worker cache name', ['build'], 'Cache is stamped <code>pump-YYYYMMDD-HHMMSS</code>. Optionally switch the prefix to <code>satis-</code> (forces a clean refresh on next load). Keeping it also works.', ['public/sw.js','sw.js']],
+    ['sw-deploy', 'Deploy scripts', ['build'], 'The stamp string lives in the deploy scripts — update if the prefix changes.', ['scripts/deploy.cjs','scripts/deploy-test.cjs']],
+    ['sw-tooling', 'Dev tooling names', ['phase'], 'pump-cli-proxy.cjs and the /pump-dev, /pump-test commands — optional rename, no user impact.', ['scripts/pump-cli-proxy.cjs','.claude/commands/']],
+  ]],
+  ['Build, verify & document', 'Ship it the way the project already works.', [
+    ['build-build', 'Build', ['build'], '<code>npm run build</code>.', []],
+    ['build-test', 'Deploy to test + approve', ['build'], '<code>npm run deploy:test</code> → preview → confirm it works before production (per the project workflow).', []],
+    ['build-prod', 'Production deploy + push', ['build'], '<code>node scripts/deploy.cjs</code> then commit docs/ and push to GitHub Pages.', []],
+    ['build-doc', 'Update CLAUDE.md', ['build'], 'Record the rebrand in the project CLAUDE.md after the production deploy.', ['CLAUDE.md']],
+  ]],
+];
+
+// render legend
+document.getElementById('legend').innerHTML = Object.values(TAGS)
+  .map(([label,desc,cls]) => `<span class="tag ${cls}" title="${desc}">${label}</span>`).join('');
+
+// render sections
+let total=0;
+const secEl = document.getElementById('sections');
+secEl.innerHTML = DATA.map(([title,note,items]) => {
+  const rows = items.map(([id,t,tags,detail,files]) => {
+    total++;
+    const tagHtml = `<span class="it-tags">${tags.map(k=>`<span class="tag ${TAGS[k][2]}">${TAGS[k][0]}</span>`).join('')}</span>`;
+    const fileHtml = files.length ? `<div class="it-files">${files.map(f=>`<span class="file">${f}</span>`).join('')}</div>` : '';
+    return `<div class="item" data-id="${id}" onclick="toggle('${id}')">
+      <div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="#06281a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+      <div class="it-body"><div class="it-title">${t}${tagHtml}</div><div class="it-detail">${detail}</div>${fileHtml}</div>
+    </div>`;
+  }).join('');
+  return `<h2>${title}</h2><div class="sec-note">${note}</div>${rows}`;
+}).join('');
+
+const KEY='satis-rebrand-ticks';
+function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}} }
+function save(s){ localStorage.setItem(KEY, JSON.stringify(s)); }
+function apply(){
+  const s=load(); let done=0;
+  document.querySelectorAll('.item').forEach(el=>{
+    const on=!!s[el.dataset.id]; el.classList.toggle('done',on); if(on)done++;
+  });
+  const pct = total? Math.round(done/total*100):0;
+  const fill=document.getElementById('progfill');
+  fill.style.width=pct+'%';
+  // graduated ramp, matching the design system
+  fill.style.background = pct>=91? 'var(--success)' : pct>=61? 'var(--honey)' : 'var(--sage)';
+  document.getElementById('progtext').textContent = `${done} of ${total} done`;
+  document.getElementById('progpct').textContent = pct+'%';
+}
+function toggle(id){ const s=load(); s[id]=!s[id]; if(!s[id])delete s[id]; save(s); apply(); }
+function resetAll(){ if(confirm('Clear all ticks?')){ localStorage.removeItem(KEY); apply(); } }
+
+document.getElementById('footer').innerHTML = `Spec companion: <code>SATIS_REBRAND_CHECKLIST.md</code> holds the same items as text for handoff. Design rules: <code>SATIS_DESIGN_SYSTEM.md</code>. Ticks are saved only in this browser. — ${total} items total.`;
+apply();
+</script>
+</body>
+</html>

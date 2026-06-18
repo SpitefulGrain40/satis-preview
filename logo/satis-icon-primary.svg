@@ -1,0 +1,8 @@
+<svg viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Satis app icon">
+  <!-- App icon · PRIMARY (inverted) · sage container, forest mark -->
+  <!-- Live text: requires Literata. Convert "S" to outlines for vector editing. -->
+  <rect width="96" height="96" rx="21" fill="#88aa99"/>
+  <text x="48" y="62" text-anchor="middle" font-family="Literata, Georgia, serif" font-weight="600" font-size="60" fill="#0e1c14">S</text>
+  <!-- Keyline · ~60% of S width, centred under the S -->
+  <rect x="37" y="70" width="22" height="2" rx="1" fill="#0e1c14"/>
+</svg>

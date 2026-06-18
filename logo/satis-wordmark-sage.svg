@@ -1,0 +1,10 @@
+<svg viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Satis.">
+  <!-- Satis wordmark · Literata 600 · sage #88aa99 (for dark backgrounds) -->
+  <!-- Live text: requires the Literata font in your editor. To get editable vector
+       shapes, select the text and use your tool's "Outline / Convert to outlines". -->
+  <g fill="#88aa99" font-family="Literata, Georgia, serif" font-weight="600" font-size="72">
+    <text x="8" y="84" letter-spacing="11">Satis.</text>
+  </g>
+  <!-- Keyline under the leading S · ~64% of S width, centred · nudge as needed -->
+  <rect x="14" y="92" width="27" height="2" rx="1" fill="#88aa99"/>
+</svg>
